@@ -1,0 +1,9 @@
+##
+# "Map" element, extending "Plugin"
+#
+
+prototype(Site:ImageBlock) < prototype(TYPO3.Neos:Plugin) {
+	package = 'JoRo.KnallImAll'
+	controller = 'ImageBlock'
+	action = 'show'
+}

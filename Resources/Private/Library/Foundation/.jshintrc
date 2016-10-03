@@ -1,0 +1,18 @@
+{
+  "bitwise": true,
+  "browser": true,
+  "curly": true,
+  "eqeqeq": true,
+  "evil": true,
+  "eqnull": false,
+  "esnext": true,
+  "immed": true,
+  "jquery": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "node": true,
+  "strict": false,
+  "shadow": false,
+  "trailing": true
+}

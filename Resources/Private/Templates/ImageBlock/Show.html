@@ -1,0 +1,22 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace media=TYPO3\Media\ViewHelpers} 
+
+<h1>{headline}</h1>
+<div class="block{currentNode} imageBlock">
+    <ul class="small-block-grid-2 medium-block-grid-3 large-block-grid-4">
+        <f:for each="{images}" as="slide" iteration="Iterator">
+            <li class="hidden">
+                <a class="lightbox" data-index="{Iterator.index}" data-fotorama="{media:uri.image(image:"{slide.filepath}", maximumWidth: 1200, maximumHeight: 1200)},{media:uri.image(image:"{slide.filepath}", maximumWidth: 120, maximumHeight: 80)},{slide.lat},{slide.lon}" href="marker{slide.id}">
+                    
+<img class="th" height="200" data-interchange="[{media:uri.image(image:"{slide.filepath}", maximumWidth: 190, maximumHeight: 130, allowCropping: true)}, (default)],
+    [{media:uri.image(image:"{slide.filepath}", maximumWidth: 250, maximumHeight: 170, allowCropping: true)}, (medium)],
+    [{media:uri.image(image:"{slide.filepath}", maximumWidth: 200, maximumHeight: 160, allowCropping: true)}, (large)]">
+                </a>
+            </li>
+        </f:for>
+    </ul>
+</div>
+
+
+
+

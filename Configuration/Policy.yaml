@@ -1,0 +1,57 @@
+#                                                                        #
+# Security policy for the TYPO3.NeosDemoTypo3Org package                 #
+#                                                                        #
+
+# resources:
+#   methods:
+#     JoRo_KnallImAll_BikeTourAccess: 'method(JoRo\KnallImAll\Controller\BikeTourController->(show|detail)Action())'
+#     JoRo_KnallImAll_DokuwikiAccess: 'method(JoRo\KnallImAll\Controller\DokuwikiController->(show|detail)Action())'
+#     JoRo_KnallImAll_OpenwrtAccess: 'method(JoRo\KnallImAll\Controller\OpenwrtController->(show)Action())'
+#     JoRo_KnallImAll_OwnCloudAccess: 'method(JoRo\KnallImAll\Controller\OwnCloudController->(show)Action())'
+# acls:
+#   Everybody:
+#     methods:
+#       JoRo_KnallImAll_BikeTourAccess: GRANT
+#       JoRo_KnallImAll_DokuwikiAccess: GRANT
+#       JoRo_KnallImAll_OpenwrtAccess: GRANT
+#       JoRo_KnallImAll_OwnCloudAccess: GRANT
+#       
+#                                                                        #
+# Security policy for the TYPO3.NeosDemoTypo3Org package                 #
+#                                                                        #
+
+privilegeTargets:
+  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+
+    JoRo_KnallImAll_BikeTourAccess:
+      matcher: method(JoRo\KnallImAll\Controller\BikeTourController->(show|detail)Action())
+    Site_DokuwikiAccess:
+      matcher: method(JoRo\KnallImAll\Controller\DokuwikiController->(show|detail)Action())
+    JoRo_KnallImAll_OpenwrtAccess:
+      matcher: method(JoRo\KnallImAll\Controller\OpenwrtController->(show)Action())
+    JoRo_KnallImAll_GpxTracksAccess:
+      matcher: method(JoRo\KnallImAll\Controller\GpxTracksController->(show)Action())
+    JoRo_KnallImAll_ImageBlockAccess:
+      matcher: method(JoRo\KnallImAll\Controller\ImageBlockController->(show)Action())
+    JoRo_KnallImAll_CdCollectionAccess:
+      matcher: method(Sarkosh\CdCollection\Controller\CollectionController->(overview|show)Action())
+
+roles:
+
+  'TYPO3.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: JoRo_KnallImAll_BikeTourAccess
+        permission: GRANT
+      -
+        privilegeTarget: Site_DokuwikiAccess
+        permission: GRANT
+      -
+        privilegeTarget: JoRo_KnallImAll_OpenwrtAccess
+        permission: GRANT
+      -
+        privilegeTarget: JoRo_KnallImAll_GpxTracksAccess
+        permission: GRANT
+      -
+        privilegeTarget: JoRo_KnallImAll_ImageBlockAccess
+        permission: GRANT

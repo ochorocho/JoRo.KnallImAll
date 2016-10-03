@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace ts=TYPO3\TypoScript\ViewHelpers}
+<html>
+<head>
+	<f:section name="stylesheets">
+		<link rel="stylesheet" href="{f:uri.resource(path: 'Styles/foundation.css', package: 'JoRo.KnallImAll')}" media="all" />
+		<link rel="stylesheet" href="{f:uri.resource(path: 'Styles/icons.css', package: 'JoRo.KnallImAll')}" media="all" />
+	</f:section>
+	<f:section name="headScripts">
+		<script src="{f:uri.resource(path: 'JavaScript/header.js', package: 'JoRo.KnallImAll')}"></script>
+		<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?sensor=false&amp;language=de"></script>
+		<script src="{f:uri.resource(path: 'JavaScript/foundation.js', package: 'JoRo.KnallImAll')}"></script>
+	</f:section>
+	<f:section name="meta">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="KnallImAll">
+        <link rel="shortcut icon" href="{f:uri.resource(path: 'Images/logo.png', package: 'JoRo.KnallImAll')}">
+        <link rel="apple-touch-icon" href="{f:uri.resource(path: 'Images/Icon-60.png', package: 'JoRo.KnallImAll')}">
+        <link rel="apple-touch-icon" sizes="60x60" href="{f:uri.resource(path: 'Images/Icon-60.png', package: 'JoRo.KnallImAll')}">
+        <link rel="apple-touch-icon" sizes="114x114" href="{f:uri.resource(path: 'Images/Icon-72.png', package: 'JoRo.KnallImAll')}">
+        <link rel="apple-touch-icon" sizes="144x144" href="{f:uri.resource(path: 'Images/Icon-72@2x.png', package: 'JoRo.KnallImAll')}">
+	</f:section>
+	
+</head>
+<body>
+
+<f:section name="body">
+
+<div class="off-canvas-wrap" data-offcanvas>
+	<div class="inner-wrap">
+		<!-- OFF CANVAS -->
+		<div class="fixed">
+			<nav id="offcanvas" class="tab-bar hide-for-medium-up">
+				<section class="left-small">
+					<a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+				</section>
+				
+				<section class="middle tab-bar-section">
+					<h1 class="title">
+						<img height="40px" width="40px" src="{f:uri.resource(path: 'Images/logo.svg', package: 'JoRo.KnallImAll')}">
+					</h1>
+				</section>
+			</nav>
+		</div>
+		<aside class="left-off-canvas-menu hide-for-medium-up">
+			<ul class="off-canvas-list">
+				<li><label>Menu</label></li>
+				{parts.menuOffCanvas -> f:format.raw()}
+			</ul>
+		</aside>
+
+
+	<div id="navi" class="icon-bar vertical five-up hide-for-small">
+		<div class="bgColor"></div>
+		{parts.menu -> f:format.raw()}
+	</div>
+    <a href="#" id="hideContent">
+        <i class="icon size-72 fi-eye"></i>
+    </a>
+
+    <style>
+        body <![CDATA[{]]>
+            background: url('{imageUri}') no-repeat center center fixed;
+        <![CDATA[}]]>
+    </style>
+
+
+	<div class="content">    	
+
+    	<div id="modal" class="reveal-modal" data-reveal aria-labelledby="secondModalTitle" aria-hidden="true" role="dialog">
+            <p></p>
+            <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+        </div>
+
+		<div class="row">
+			<div class="large-12 columns">
+				{content.main -> f:format.raw()}
+			</div>
+		</div>
+	</div>
+
+
+	<!-- OFFCANVAS END -->
+	<a class="exit-off-canvas"></a>
+</div>
+</f:section>
+
+<f:section name="bodyScripts">
+		<script src="{f:uri.resource(path: 'JavaScript/app.js', package: 'JoRo.KnallImAll')}"></script>
+		<script src="{f:uri.resource(path: 'JavaScript/fotorama.js', package: 'JoRo.KnallImAll')}"></script>
+        <!--script src="http://neos.knallimall.org:35729/livereload.js"></script-->
+        <!-- Piwik -->
+        <script type="text/javascript">
+          var _paq = _paq || [];
+          _paq.push(['trackPageView']);
+          _paq.push(['enableLinkTracking']);
+          (function() {
+            var u="//piwik.knallimall.org/";
+            _paq.push(['setTrackerUrl', u+'piwik.php']);
+            _paq.push(['setSiteId', 12]);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+          })();
+        </script>
+        <noscript><p><img src="//piwik.knallimall.org/piwik.php?idsite=12" style="border:0;" alt="" /></p></noscript>
+        <!-- End Piwik Code -->
+
+</f:section>
+</body>
+</html>

@@ -1,0 +1,9 @@
+##
+# "Map" element, extending "Plugin"
+#
+
+prototype(Site:GpxTracks) < prototype(TYPO3.Neos:Plugin) {
+	package = 'JoRo.KnallImAll'
+	controller = 'GpxTracks'
+	action = 'show'
+}

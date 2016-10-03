@@ -1,0 +1,10 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace media=TYPO3\Media\ViewHelpers}
+
+
+PFAD: {f:uri.resource(resource: asset.resource)} <br>
+NAME: {asset.resource.filename}<br>
+
+########################################
+<div id="track" class="gmapTracks" gmap-track="{f:uri.resource(resource: asset.resource)}" ></div>
+<div id="noroll" style="width: 100%; height: 400px"></div>

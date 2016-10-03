@@ -1,0 +1,43 @@
+{namespace neos=TYPO3\Neos\ViewHelpers}
+{namespace media=TYPO3\Media\ViewHelpers}
+<h1><i class="icon fi-database"></i> {headline}</h1>
+
+<f:for each="{files}" as="file" iteration="iterator">
+	<div><a href="">{file}</a></div>
+</f:for>
+
+<!--
+	<ul class="row accordion" data-accordion>
+	<f:for each="{entries}" as="entry" iteration="iterator">
+	
+		<f:if condition="{iterator.index} == '0'">
+			<f:then>
+			</f:then>
+			<f:else>
+				<f:if condition="{iterator.index} == '1'">
+					<f:then>	
+					</f:then>
+					<f:else>
+		
+						<li class="accordion-navigation">
+							<f:if condition="{entry.description}">
+								<f:then>
+									<a href="#panel{iterator.cycle}"><i class="icon fi-dokuwiki"></i> {entry.title}</a>
+									<div id="panel{iterator.cycle}" class="content">
+										<f:format.htmlentitiesDecode>{entry.description}</f:format.htmlentitiesDecode>
+									</div>
+								</f:then>
+								<f:else>
+									<a href="#panel{iterator.cycle}"><i class="icon fi-dokuwiki"></i> {entry.title}</a>
+								</f:else>
+							</f:if>
+						</li>
+		
+					</f:else>
+				</f:if>
+			</f:else>
+		</f:if>
+	
+	</f:for>
+	</ul>
+-->

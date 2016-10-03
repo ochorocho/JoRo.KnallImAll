@@ -1,0 +1,1443 @@
+# If you need more than just the "main" content area you can
+# uncomment the snippet below. It will add a "sidebar" area
+# to your pages. You can add as many areas as you like, still
+# only those that are rendered in your TypoScript and Template
+# are visible on your page.
+
+'TYPO3.NeosDemoTypo3Org:Flickr': {  }
+'TYPO3.NeosDemoTypo3Org:Registration': {  }
+'TYPO3.NeosDemoTypo3Org:ChapterMenu': {  }
+'TYPO3.NeosDemoTypo3Org:Chapter': {  }
+'TYPO3.Neos.NodeTypes:Form': {  }
+'TYPO3.Neos.NodeTypes:AssetList': {  }
+'TYPO3.NeosDemoTypo3Org:Carousel': {  }
+'TYPO3.Neos.NodeTypes:ContentReferences': {  }
+'TYPO3.Neos.NodeTypes:Menu': {  }
+'JoRo.KnallImAll:GpxTracks':
+  superTypes:
+    'TYPO3.Neos:Plugin': true
+  ui:
+    label: 'GPX Tracks'
+    icon: icon-map-marker
+    inspector:
+      groups:
+        TagGroup:
+          label: TagGroup
+          position: 1
+  options:
+    pluginViews:
+      GpxTracks:
+        label: 'GPX Daten anzeigen'
+        controllerActions:
+          JoRo\KnallImAll\Controller\GpxTracksController:
+            - showAction
+  postprocessors:
+    TagPostprocessor:
+      postprocessor: JoRo\KnallImAll\NodeTypePostprocessor\TagPostprocessor
+  properties:
+    headline:
+      type: string
+      defaultValue: 'Strecke 1'
+      ui:
+        label: Headline
+        inlineEditable: true
+        inspector:
+          group: TagGroup
+    text:
+      type: string
+      ui:
+        label: Text
+        reloadIfChanged: true
+        inspector:
+          group: TagGroup
+    tour:
+      type: array<TYPO3\Media\Domain\Model\Asset>
+      ui:
+        label: Tour
+        reloadIfChanged: true
+        inspector:
+          group: TagGroup
+'JoRo.KnallImAll:BikeTour':
+  superTypes:
+    'TYPO3.Neos:Plugin': true
+  ui:
+    label: 'Bike Tour'
+    icon: icon-map-marker
+    inspector:
+      groups:
+        BikeTour:
+          label: BikeTour
+          position: 1
+  options:
+    pluginViews:
+      BikeTour:
+        label: 'Bike Tour Anzeigen'
+        controllerActions:
+          JoRo\KnallImAll\Controller\BikeTourController:
+            - showAction
+  properties:
+    headline:
+      type: string
+      defaultValue: 'Strecke 1'
+      ui:
+        label: Headline
+        inlineEditable: true
+        inspector:
+          group: BikeTour
+    tour:
+      type: TYPO3\Media\Domain\Model\Asset
+      ui:
+        label: Tour
+        reloadIfChanged: true
+        inspector:
+          group: BikeTour
+'JoRo.KnallImAll:ImageBlock':
+  superTypes:
+    'TYPO3.Neos:Plugin': true
+  ui:
+    label: 'Image Block by Tag'
+    icon: icon-picture
+    inspector:
+      groups:
+        TagGroup:
+          label: 'Image Block'
+          position: 1
+  options:
+    pluginViews:
+      ImageBlock:
+        label: 'Image Block'
+        controllerActions:
+          JoRo\KnallImAll\Controller\ImageBlockController:
+            - showAction
+  postprocessors:
+    TagPostprocessor:
+      postprocessor: JoRo\KnallImAll\NodeTypePostprocessor\TagPostprocessor
+  properties:
+    headline:
+      type: string
+      defaultValue: 'Nice Pictures'
+      ui:
+        label: Headline
+        inlineEditable: true
+        inspector:
+          group: TagGroup
+'JoRo.KnallImAll:Dokuwiki':
+  superTypes:
+    'TYPO3.Neos:Plugin': true
+  ui:
+    label: Dokuwiki
+    icon: 'icon fi-dokuwiki'
+    inspector:
+      groups:
+        Dokuwiki:
+          label: Dokuwiki
+          position: 1
+  options:
+    pluginViews:
+      Dokuwiki:
+        label: 'Dokuwiki RSS Feed'
+        controllerActions:
+          JoRo\KnallImAll\Controller\DokuwikiController:
+            - showAction
+  properties:
+    headline:
+      type: string
+      defaultValue: Dokuwiki
+      ui:
+        label: Headline
+        inlineEditable: true
+        reloadIfChanged: true
+        inspector:
+          group: Dokuwiki
+    url:
+      type: string
+      ui:
+        label: 'Dokuwiki URL'
+        reloadIfChanged: true
+        inspector:
+          group: Dokuwiki
+'JoRo.KnallImAll:Openwrt':
+  superTypes:
+    'TYPO3.Neos:Plugin': true
+  ui:
+    label: OpenWrt
+    icon: 'icon fi-rss'
+    inspector:
+      groups:
+        openwrt:
+          label: OpenWRT
+          position: 1
+  options:
+    pluginViews:
+      Dokuwiki:
+        label: 'OpenWRT Build'
+        controllerActions:
+          JoRo\KnallImAll\Controller\OpenwrtController:
+            - showAction
+  properties:
+    headline:
+      type: string
+      defaultValue: 'Openwrt Build'
+      ui:
+        label: Headline
+        inlineEditable: true
+        reloadIfChanged: true
+        inspector:
+          group: openwrt
+    path:
+      type: string
+      ui:
+        label: Path
+        reloadIfChanged: true
+        inspector:
+          group: openwrt
+    filter:
+      type: string
+      ui:
+        label: 'Hide files (comma seperated list)'
+        reloadIfChanged: true
+        inspector:
+          group: openwrt
+'TYPO3.Neos.NodeTypes:Page':
+  childNodes:
+    teaser: {  }
+  ui:
+    inspector:
+      groups:
+        image:
+          label: Image
+          position: 200
+        icon:
+          label: Foundation
+          position: 50
+  properties:
+    layout:
+      ui: {  }
+    subpageLayout:
+      ui: {  }
+    image:
+      type: TYPO3\Media\Domain\Model\ImageInterface
+      ui:
+        label: Image
+        reloadIfChanged: true
+        inspector:
+          group: image
+          position: 50
+          editorOptions:
+            crop:
+              aspectRatio:
+                options:
+                  square:
+                    width: 1
+                    height: 1
+                    label: Square
+                  fourFive:
+                    width: 4
+                    height: 5
+    imageTitleText: null
+    iconsFoundation:
+      type: string
+      ui:
+        label: Icons
+        reloadIfChanged: true
+        inspector:
+          group: icon
+          position: 200
+          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            placeholder: Default
+            values:
+              '':
+                label: ''
+              fi-address-book:
+                label: fi-address-book
+              fi-track:
+                label: fi-track
+              fi-dokuwiki:
+                label: fi-dokuwiki
+              fi-alert:
+                label: fi-alert
+              fi-align-center:
+                label: fi-align-center
+              fi-align-justify:
+                label: fi-align-justify
+              fi-align-left:
+                label: fi-align-left
+              fi-align-right:
+                label: fi-align-right
+              fi-anchor:
+                label: fi-anchor
+              fi-annotate:
+                label: fi-annotate
+              fi-archive:
+                label: fi-archive
+              fi-arrow-down:
+                label: fi-arrow-down
+              fi-arrow-left:
+                label: fi-arrow-left
+              fi-arrow-right:
+                label: fi-arrow-right
+              fi-arrow-up:
+                label: fi-arrow-up
+              fi-arrows-compress:
+                label: fi-arrows-compress
+              fi-arrows-expand:
+                label: fi-arrows-expand
+              fi-arrows-in:
+                label: fi-arrows-in
+              fi-arrows-out:
+                label: fi-arrows-out
+              fi-asl:
+                label: fi-asl
+              fi-asterisk:
+                label: fi-asterisk
+              fi-at-sign:
+                label: fi-at-sign
+              fi-background-color:
+                label: fi-background-color
+              fi-battery-empty:
+                label: fi-battery-empty
+              fi-battery-full:
+                label: fi-battery-full
+              fi-battery-half:
+                label: fi-battery-half
+              fi-bitcoin-circle:
+                label: fi-bitcoin-circle
+              fi-bitcoin:
+                label: fi-bitcoin
+              fi-blind:
+                label: fi-blind
+              fi-bluetooth:
+                label: fi-bluetooth
+              fi-bold:
+                label: fi-bold
+              fi-book-bookmark:
+                label: fi-book-bookmark
+              fi-book:
+                label: fi-book
+              fi-bookmark:
+                label: fi-bookmark
+              fi-braille:
+                label: fi-braille
+              fi-burst-new:
+                label: fi-burst-new
+              fi-burst-sale:
+                label: fi-burst-sale
+              fi-burst:
+                label: fi-burst
+              fi-calendar:
+                label: fi-calendar
+              fi-aus:
+                label: fi-aus
+              fi-camera:
+                label: fi-camera
+              fi-check:
+                label: fi-check
+              fi-checkbox:
+                label: fi-checkbox
+              fi-clipboard-notes:
+                label: fi-clipboard-notes
+              fi-clipboard-pencil:
+                label: fi-clipboard-pencil
+              fi-clipboard:
+                label: fi-clipboard
+              fi-clock:
+                label: fi-clock
+              fi-closed-caption:
+                label: fi-closed-caption
+              fi-cloud:
+                label: fi-cloud
+              fi-comment-minus:
+                label: fi-comment-minus
+              fi-comment-quotes:
+                label: fi-comment-quotes
+              fi-comment-video:
+                label: fi-comment-video
+              fi-comment:
+                label: fi-comment
+              fi-comments:
+                label: fi-comments
+              fi-compass:
+                label: fi-compass
+              fi-contrast:
+                label: fi-contrast
+              fi-credit-card:
+                label: fi-credit-card
+              fi-crop:
+                label: fi-crop
+              fi-crown:
+                label: fi-crown
+              fi-css3:
+                label: fi-css3
+              fi-database:
+                label: fi-database
+              fi-die-five:
+                label: fi-die-five
+              fi-die-four:
+                label: fi-die-four
+              fi-die-one:
+                label: fi-die-one
+              fi-die-six:
+                label: fi-die-six
+              fi-die-three:
+                label: fi-die-three
+              fi-die-two:
+                label: fi-die-two
+              fi-dislike:
+                label: fi-dislike
+              fi-dollar-bill:
+                label: fi-dollar-bill
+              fi-dollar:
+                label: fi-dollar
+              fi-download:
+                label: fi-download
+              fi-eject:
+                label: fi-eject
+              fi-elevator:
+                label: fi-elevator
+              fi-euro:
+                label: fi-euro
+              fi-eye:
+                label: fi-eye
+              fi-fast-forward:
+                label: fi-fast-forward
+              fi-female-symbol:
+                label: fi-female-symbol
+              fi-female:
+                label: fi-female
+              fi-filter:
+                label: fi-filter
+              fi-first-aid:
+                label: fi-first-aid
+              fi-flag:
+                label: fi-flag
+              fi-folder-add:
+                label: fi-folder-add
+              fi-folder-lock:
+                label: fi-folder-lock
+              fi-folder:
+                label: fi-folder
+              fi-foot:
+                label: fi-foot
+              fi-foundation:
+                label: fi-foundation
+              fi-graph-bar:
+                label: fi-graph-bar
+              fi-graph-horizontal:
+                label: fi-graph-horizontal
+              fi-graph-pie:
+                label: fi-graph-pie
+              fi-graph-trend:
+                label: fi-graph-trend
+              fi-guide-dog:
+                label: fi-guide-dog
+              fi-hearing-aid:
+                label: fi-hearing-aid
+              fi-heart:
+                label: fi-heart
+              fi-home:
+                label: fi-home
+              fi-html5:
+                label: fi-html5
+              fi-indent-less:
+                label: fi-indent-less
+              fi-indent-more:
+                label: fi-indent-more
+              fi-info:
+                label: fi-info
+              fi-italic:
+                label: fi-italic
+              fi-key:
+                label: fi-key
+              fi-laptop:
+                label: fi-laptop
+              fi-layout:
+                label: fi-layout
+              fi-lightbulb:
+                label: fi-lightbulb
+              fi-like:
+                label: fi-like
+              fi-link:
+                label: fi-link
+              fi-list-bullet:
+                label: fi-list-bullet
+              fi-list-number:
+                label: fi-list-number
+              fi-list-thumbnails:
+                label: fi-list-thumbnails
+              fi-list:
+                label: fi-list
+              fi-lock:
+                label: fi-lock
+              fi-loop:
+                label: fi-loop
+              fi-magnifying-glass:
+                label: fi-magnifying-glass
+              fi-mail:
+                label: fi-mail
+              fi-male-female:
+                label: fi-male-female
+              fi-male-symbol:
+                label: fi-male-symbol
+              fi-male:
+                label: fi-male
+              fi-map:
+                label: fi-map
+              fi-marker:
+                label: fi-marker
+              fi-megaphone:
+                label: fi-megaphone
+              fi-microphone:
+                label: fi-microphone
+              fi-minus-circle:
+                label: fi-minus-circle
+              fi-minus:
+                label: fi-minus
+              fi-mobile-signal:
+                label: fi-mobile-signal
+              fi-mobile:
+                label: fi-mobile
+              fi-monitor:
+                label: fi-monitor
+              fi-mountains:
+                label: fi-mountains
+              fi-music:
+                label: fi-music
+              fi-next:
+                label: fi-next
+              fi-no-dogs:
+                label: fi-no-dogs
+              fi-no-smoking:
+                label: fi-no-smoking
+              fi-page-add:
+                label: fi-page-add
+              fi-page-copy:
+                label: fi-page-copy
+              fi-page-csv:
+                label: fi-page-csv
+              fi-page-delete:
+                label: fi-page-delete
+              fi-page-doc:
+                label: fi-page-doc
+              fi-page-edit:
+                label: fi-page-edit
+              fi-page-export-csv:
+                label: fi-page-export-csv
+              fi-page-export-doc:
+                label: fi-page-export-doc
+              fi-page-export-pdf:
+                label: fi-page-export-pdf
+              fi-page-export:
+                label: fi-page-export
+              fi-page-filled:
+                label: fi-page-filled
+              fi-page-multiple:
+                label: fi-page-multiple
+              fi-page-pdf:
+                label: fi-page-pdf
+              fi-page-remove:
+                label: fi-page-remove
+              fi-page-search:
+                label: fi-page-search
+              fi-page:
+                label: fi-page
+              fi-paint-bucket:
+                label: fi-paint-bucket
+              fi-paperclip:
+                label: fi-paperclip
+              fi-pause:
+                label: fi-pause
+              fi-paw:
+                label: fi-paw
+              fi-paypal:
+                label: fi-paypal
+              fi-pencil:
+                label: fi-pencil
+              fi-photo:
+                label: fi-photo
+              fi-play-circle:
+                label: fi-play-circle
+              fi-play-video:
+                label: fi-play-video
+              fi-play:
+                label: fi-play
+              fi-plus:
+                label: fi-plus
+              fi-pound:
+                label: fi-pound
+              fi-power:
+                label: fi-power
+              fi-previous:
+                label: fi-previous
+              fi-price-tag:
+                label: fi-price-tag
+              fi-pricetag-multiple:
+                label: fi-pricetag-multiple
+              fi-print:
+                label: fi-print
+              fi-prohibited:
+                label: fi-prohibited
+              fi-projection-screen:
+                label: fi-projection-screen
+              fi-puzzle:
+                label: fi-puzzle
+              fi-quote:
+                label: fi-quote
+              fi-record:
+                label: fi-record
+              fi-refresh:
+                label: fi-refresh
+              fi-results-demographics:
+                label: fi-results-demographics
+              fi-results:
+                label: fi-results
+              fi-rewind-ten:
+                label: fi-rewind-ten
+              fi-rewind:
+                label: fi-rewind
+              fi-rss:
+                label: fi-rss
+              fi-safety-cone:
+                label: fi-safety-cone
+              fi-save:
+                label: fi-save
+              fi-share:
+                label: fi-share
+              fi-sheriff-badge:
+                label: fi-sheriff-badge
+              fi-shield:
+                label: fi-shield
+              fi-shopping-bag:
+                label: fi-shopping-bag
+              fi-shopping-cart:
+                label: fi-shopping-cart
+              fi-shuffle:
+                label: fi-shuffle
+              fi-skull:
+                label: fi-skull
+              fi-social-500px:
+                label: fi-social-500px
+              fi-social-adobe:
+                label: fi-social-adobe
+              fi-social-amazon:
+                label: fi-social-amazon
+              fi-social-android:
+                label: fi-social-android
+              fi-social-apple:
+                label: fi-social-apple
+              fi-social-behance:
+                label: fi-social-behance
+              fi-social-bing:
+                label: fi-social-bing
+              fi-social-blogger:
+                label: fi-social-blogger
+              fi-social-delicious:
+                label: fi-social-delicious
+              fi-social-designer-news:
+                label: fi-social-designer-news
+              fi-social-deviant-art:
+                label: fi-social-deviant-art
+              fi-social-digg:
+                label: fi-social-digg
+              fi-social-dribbble:
+                label: fi-social-dribbble
+              fi-social-drive:
+                label: fi-social-drive
+              fi-social-dropbox:
+                label: fi-social-dropbox
+              fi-social-evernote:
+                label: fi-social-evernote
+              fi-social-facebook:
+                label: fi-social-facebook
+              fi-social-flickr:
+                label: fi-social-flickr
+              fi-social-forrst:
+                label: fi-social-forrst
+              fi-social-foursquare:
+                label: fi-social-foursquare
+              fi-social-game-center:
+                label: fi-social-game-center
+              fi-social-github:
+                label: fi-social-github
+              fi-social-google-plus:
+                label: fi-social-google-plus
+              fi-social-hacker-news:
+                label: fi-social-hacker-news
+              fi-social-hi5:
+                label: fi-social-hi5
+              fi-social-instagram:
+                label: fi-social-instagram
+              fi-social-joomla:
+                label: fi-social-joomla
+              fi-social-lastfm:
+                label: fi-social-lastfm
+              fi-social-linkedin:
+                label: fi-social-linkedin
+              fi-social-medium:
+                label: fi-social-medium
+              fi-social-myspace:
+                label: fi-social-myspace
+              fi-social-orkut:
+                label: fi-social-orkut
+              fi-social-path:
+                label: fi-social-path
+              fi-social-picasa:
+                label: fi-social-picasa
+              fi-social-pinterest:
+                label: fi-social-pinterest
+              fi-social-rdio:
+                label: fi-social-rdio
+              fi-social-reddit:
+                label: fi-social-reddit
+              fi-social-skillshare:
+                label: fi-social-skillshare
+              fi-social-skype:
+                label: fi-social-skype
+              fi-social-smashing-mag:
+                label: fi-social-smashing-mag
+              fi-social-snapchat:
+                label: fi-social-snapchat
+              fi-social-spotify:
+                label: fi-social-spotify
+              fi-social-squidoo:
+                label: fi-social-squidoo
+              fi-social-stack-overflow:
+                label: fi-social-stack-overflow
+              fi-social-steam:
+                label: fi-social-steam
+              fi-social-stumbleupon:
+                label: fi-social-stumbleupon
+              fi-social-treehouse:
+                label: fi-social-treehouse
+              fi-social-tumblr:
+                label: fi-social-tumblr
+              fi-social-twitter:
+                label: fi-social-twitter
+              fi-social-vimeo:
+                label: fi-social-vimeo
+              fi-social-windows:
+                label: fi-social-windows
+              fi-social-xbox:
+                label: fi-social-xbox
+              fi-social-yahoo:
+                label: fi-social-yahoo
+              fi-social-yelp:
+                label: fi-social-yelp
+              fi-social-youtube:
+                label: fi-social-youtube
+              fi-social-zerply:
+                label: fi-social-zerply
+              fi-social-zurb:
+                label: fi-social-zurb
+              fi-sound:
+                label: fi-sound
+              fi-star:
+                label: fi-star
+              fi-stop:
+                label: fi-stop
+              fi-strikethrough:
+                label: fi-strikethrough
+              fi-subscript:
+                label: fi-subscript
+              fi-superscript:
+                label: fi-superscript
+              fi-tablet-landscape:
+                label: fi-tablet-landscape
+              fi-tablet-portrait:
+                label: fi-tablet-portrait
+              fi-target-two:
+                label: fi-target-two
+              fi-target:
+                label: fi-target
+              fi-telephone-accessible:
+                label: fi-telephone-accessible
+              fi-telephone:
+                label: fi-telephone
+              fi-text-color:
+                label: fi-text-color
+              fi-thumbnails:
+                label: fi-thumbnails
+              fi-ticket:
+                label: fi-ticket
+              fi-torso-business:
+                label: fi-torso-business
+              fi-torso-female:
+                label: fi-torso-female
+              fi-torso:
+                label: fi-torso
+              fi-torsos-all-female:
+                label: fi-torsos-all-female
+              fi-torsos-all:
+                label: fi-torsos-all
+              fi-torsos-female-male:
+                label: fi-torsos-female-male
+              fi-torsos-male-female:
+                label: fi-torsos-male-female
+              fi-torsos:
+                label: fi-torsos
+              fi-trash:
+                label: fi-trash
+              fi-trees:
+                label: fi-trees
+              fi-trophy:
+                label: fi-trophy
+              fi-underline:
+                label: fi-underline
+              fi-universal-access:
+                label: fi-universal-access
+              fi-unlink:
+                label: fi-unlink
+              fi-unlock:
+                label: fi-unlock
+              fi-upload-cloud:
+                label: fi-upload-cloud
+              fi-upload:
+                label: fi-upload
+              fi-usb:
+                label: fi-usb
+              fi-video:
+                label: fi-video
+              fi-volume-none:
+                label: fi-volume-none
+              fi-volume-strike:
+                label: fi-volume-strike
+              fi-volume:
+                label: fi-volume
+              fi-web:
+                label: fi-web
+              fi-wheelchair:
+                label: fi-wheelchair
+              fi-widget:
+                label: fi-widget
+              fi-wrench:
+                label: fi-wrench
+              fi-x-circle:
+                label: fi-x-circle
+              fi-x:
+                label: fi-x
+              fi-yen:
+                label: fi-yen
+              fi-zoom-in:
+                label: fi-zoom-in
+              fi-zoom-out:
+                label: fi-zoom-out
+'TYPO3.Neos:Shortcut':
+  superTypes:
+    'TYPO3.Neos:Document': true
+  ui:
+    label: i18n
+    icon: icon-share
+    position: 200
+    inspector:
+      groups:
+        document:
+          label: i18n
+  properties:
+    targetMode:
+      type: string
+      defaultValue: firstChildNode
+      ui:
+        label: i18n
+        reloadPageIfChanged: true
+        inspector:
+          group: document
+          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            values:
+              firstChildNode:
+                label: i18n
+              parentNode:
+                label: i18n
+              selectedTarget:
+                label: i18n
+    target:
+      type: string
+      ui:
+        label: i18n
+        reloadPageIfChanged: true
+        inspector:
+          group: document
+          editor: TYPO3.Neos/Inspector/Editors/LinkEditor
+    iconsFoundation:
+      type: string
+      ui:
+        label: 'Foundation Icons'
+        reloadPageIfChanged: true
+        inspector:
+          group: document
+          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editorOptions:
+            placeholder: Default
+            values:
+              '':
+                label: ''
+              fi-address-book:
+                label: fi-address-book
+              fi-dokuwiki:
+                label: fi-dokuwiki
+              fi-alert:
+                label: fi-alert
+              fi-align-center:
+                label: fi-align-center
+              fi-align-justify:
+                label: fi-align-justify
+              fi-align-left:
+                label: fi-align-left
+              fi-align-right:
+                label: fi-align-right
+              fi-anchor:
+                label: fi-anchor
+              fi-annotate:
+                label: fi-annotate
+              fi-archive:
+                label: fi-archive
+              fi-arrow-down:
+                label: fi-arrow-down
+              fi-arrow-left:
+                label: fi-arrow-left
+              fi-arrow-right:
+                label: fi-arrow-right
+              fi-arrow-up:
+                label: fi-arrow-up
+              fi-arrows-compress:
+                label: fi-arrows-compress
+              fi-arrows-expand:
+                label: fi-arrows-expand
+              fi-arrows-in:
+                label: fi-arrows-in
+              fi-arrows-out:
+                label: fi-arrows-out
+              fi-asl:
+                label: fi-asl
+              fi-asterisk:
+                label: fi-asterisk
+              fi-at-sign:
+                label: fi-at-sign
+              fi-background-color:
+                label: fi-background-color
+              fi-battery-empty:
+                label: fi-battery-empty
+              fi-battery-full:
+                label: fi-battery-full
+              fi-battery-half:
+                label: fi-battery-half
+              fi-bitcoin-circle:
+                label: fi-bitcoin-circle
+              fi-bitcoin:
+                label: fi-bitcoin
+              fi-blind:
+                label: fi-blind
+              fi-bluetooth:
+                label: fi-bluetooth
+              fi-bold:
+                label: fi-bold
+              fi-book-bookmark:
+                label: fi-book-bookmark
+              fi-book:
+                label: fi-book
+              fi-bookmark:
+                label: fi-bookmark
+              fi-braille:
+                label: fi-braille
+              fi-burst-new:
+                label: fi-burst-new
+              fi-burst-sale:
+                label: fi-burst-sale
+              fi-burst:
+                label: fi-burst
+              fi-calendar:
+                label: fi-calendar
+              fi-aus:
+                label: fi-aus
+              fi-camera:
+                label: fi-camera
+              fi-check:
+                label: fi-check
+              fi-checkbox:
+                label: fi-checkbox
+              fi-clipboard-notes:
+                label: fi-clipboard-notes
+              fi-clipboard-pencil:
+                label: fi-clipboard-pencil
+              fi-clipboard:
+                label: fi-clipboard
+              fi-clock:
+                label: fi-clock
+              fi-closed-caption:
+                label: fi-closed-caption
+              fi-cloud:
+                label: fi-cloud
+              fi-comment-minus:
+                label: fi-comment-minus
+              fi-comment-quotes:
+                label: fi-comment-quotes
+              fi-comment-video:
+                label: fi-comment-video
+              fi-comment:
+                label: fi-comment
+              fi-comments:
+                label: fi-comments
+              fi-compass:
+                label: fi-compass
+              fi-contrast:
+                label: fi-contrast
+              fi-credit-card:
+                label: fi-credit-card
+              fi-crop:
+                label: fi-crop
+              fi-crown:
+                label: fi-crown
+              fi-css3:
+                label: fi-css3
+              fi-database:
+                label: fi-database
+              fi-die-five:
+                label: fi-die-five
+              fi-die-four:
+                label: fi-die-four
+              fi-die-one:
+                label: fi-die-one
+              fi-die-six:
+                label: fi-die-six
+              fi-die-three:
+                label: fi-die-three
+              fi-die-two:
+                label: fi-die-two
+              fi-dislike:
+                label: fi-dislike
+              fi-dollar-bill:
+                label: fi-dollar-bill
+              fi-dollar:
+                label: fi-dollar
+              fi-download:
+                label: fi-download
+              fi-eject:
+                label: fi-eject
+              fi-elevator:
+                label: fi-elevator
+              fi-euro:
+                label: fi-euro
+              fi-eye:
+                label: fi-eye
+              fi-fast-forward:
+                label: fi-fast-forward
+              fi-female-symbol:
+                label: fi-female-symbol
+              fi-female:
+                label: fi-female
+              fi-filter:
+                label: fi-filter
+              fi-first-aid:
+                label: fi-first-aid
+              fi-flag:
+                label: fi-flag
+              fi-folder-add:
+                label: fi-folder-add
+              fi-folder-lock:
+                label: fi-folder-lock
+              fi-folder:
+                label: fi-folder
+              fi-foot:
+                label: fi-foot
+              fi-foundation:
+                label: fi-foundation
+              fi-graph-bar:
+                label: fi-graph-bar
+              fi-graph-horizontal:
+                label: fi-graph-horizontal
+              fi-graph-pie:
+                label: fi-graph-pie
+              fi-graph-trend:
+                label: fi-graph-trend
+              fi-guide-dog:
+                label: fi-guide-dog
+              fi-hearing-aid:
+                label: fi-hearing-aid
+              fi-heart:
+                label: fi-heart
+              fi-home:
+                label: fi-home
+              fi-html5:
+                label: fi-html5
+              fi-indent-less:
+                label: fi-indent-less
+              fi-indent-more:
+                label: fi-indent-more
+              fi-info:
+                label: fi-info
+              fi-italic:
+                label: fi-italic
+              fi-key:
+                label: fi-key
+              fi-laptop:
+                label: fi-laptop
+              fi-layout:
+                label: fi-layout
+              fi-lightbulb:
+                label: fi-lightbulb
+              fi-like:
+                label: fi-like
+              fi-link:
+                label: fi-link
+              fi-list-bullet:
+                label: fi-list-bullet
+              fi-list-number:
+                label: fi-list-number
+              fi-list-thumbnails:
+                label: fi-list-thumbnails
+              fi-list:
+                label: fi-list
+              fi-lock:
+                label: fi-lock
+              fi-loop:
+                label: fi-loop
+              fi-magnifying-glass:
+                label: fi-magnifying-glass
+              fi-mail:
+                label: fi-mail
+              fi-male-female:
+                label: fi-male-female
+              fi-male-symbol:
+                label: fi-male-symbol
+              fi-male:
+                label: fi-male
+              fi-map:
+                label: fi-map
+              fi-marker:
+                label: fi-marker
+              fi-megaphone:
+                label: fi-megaphone
+              fi-microphone:
+                label: fi-microphone
+              fi-minus-circle:
+                label: fi-minus-circle
+              fi-minus:
+                label: fi-minus
+              fi-mobile-signal:
+                label: fi-mobile-signal
+              fi-mobile:
+                label: fi-mobile
+              fi-monitor:
+                label: fi-monitor
+              fi-mountains:
+                label: fi-mountains
+              fi-music:
+                label: fi-music
+              fi-next:
+                label: fi-next
+              fi-no-dogs:
+                label: fi-no-dogs
+              fi-no-smoking:
+                label: fi-no-smoking
+              fi-page-add:
+                label: fi-page-add
+              fi-page-copy:
+                label: fi-page-copy
+              fi-page-csv:
+                label: fi-page-csv
+              fi-page-delete:
+                label: fi-page-delete
+              fi-page-doc:
+                label: fi-page-doc
+              fi-page-edit:
+                label: fi-page-edit
+              fi-page-export-csv:
+                label: fi-page-export-csv
+              fi-page-export-doc:
+                label: fi-page-export-doc
+              fi-page-export-pdf:
+                label: fi-page-export-pdf
+              fi-page-export:
+                label: fi-page-export
+              fi-page-filled:
+                label: fi-page-filled
+              fi-page-multiple:
+                label: fi-page-multiple
+              fi-page-pdf:
+                label: fi-page-pdf
+              fi-page-remove:
+                label: fi-page-remove
+              fi-page-search:
+                label: fi-page-search
+              fi-page:
+                label: fi-page
+              fi-paint-bucket:
+                label: fi-paint-bucket
+              fi-paperclip:
+                label: fi-paperclip
+              fi-pause:
+                label: fi-pause
+              fi-paw:
+                label: fi-paw
+              fi-paypal:
+                label: fi-paypal
+              fi-pencil:
+                label: fi-pencil
+              fi-photo:
+                label: fi-photo
+              fi-play-circle:
+                label: fi-play-circle
+              fi-play-video:
+                label: fi-play-video
+              fi-play:
+                label: fi-play
+              fi-plus:
+                label: fi-plus
+              fi-pound:
+                label: fi-pound
+              fi-power:
+                label: fi-power
+              fi-previous:
+                label: fi-previous
+              fi-price-tag:
+                label: fi-price-tag
+              fi-pricetag-multiple:
+                label: fi-pricetag-multiple
+              fi-print:
+                label: fi-print
+              fi-prohibited:
+                label: fi-prohibited
+              fi-projection-screen:
+                label: fi-projection-screen
+              fi-puzzle:
+                label: fi-puzzle
+              fi-quote:
+                label: fi-quote
+              fi-record:
+                label: fi-record
+              fi-refresh:
+                label: fi-refresh
+              fi-results-demographics:
+                label: fi-results-demographics
+              fi-results:
+                label: fi-results
+              fi-rewind-ten:
+                label: fi-rewind-ten
+              fi-rewind:
+                label: fi-rewind
+              fi-rss:
+                label: fi-rss
+              fi-safety-cone:
+                label: fi-safety-cone
+              fi-save:
+                label: fi-save
+              fi-share:
+                label: fi-share
+              fi-sheriff-badge:
+                label: fi-sheriff-badge
+              fi-shield:
+                label: fi-shield
+              fi-shopping-bag:
+                label: fi-shopping-bag
+              fi-shopping-cart:
+                label: fi-shopping-cart
+              fi-shuffle:
+                label: fi-shuffle
+              fi-skull:
+                label: fi-skull
+              fi-social-500px:
+                label: fi-social-500px
+              fi-social-adobe:
+                label: fi-social-adobe
+              fi-social-amazon:
+                label: fi-social-amazon
+              fi-social-android:
+                label: fi-social-android
+              fi-social-apple:
+                label: fi-social-apple
+              fi-social-behance:
+                label: fi-social-behance
+              fi-social-bing:
+                label: fi-social-bing
+              fi-social-blogger:
+                label: fi-social-blogger
+              fi-social-delicious:
+                label: fi-social-delicious
+              fi-social-designer-news:
+                label: fi-social-designer-news
+              fi-social-deviant-art:
+                label: fi-social-deviant-art
+              fi-social-digg:
+                label: fi-social-digg
+              fi-social-dribbble:
+                label: fi-social-dribbble
+              fi-social-drive:
+                label: fi-social-drive
+              fi-social-dropbox:
+                label: fi-social-dropbox
+              fi-social-evernote:
+                label: fi-social-evernote
+              fi-social-facebook:
+                label: fi-social-facebook
+              fi-social-flickr:
+                label: fi-social-flickr
+              fi-social-forrst:
+                label: fi-social-forrst
+              fi-social-foursquare:
+                label: fi-social-foursquare
+              fi-social-game-center:
+                label: fi-social-game-center
+              fi-social-github:
+                label: fi-social-github
+              fi-social-google-plus:
+                label: fi-social-google-plus
+              fi-social-hacker-news:
+                label: fi-social-hacker-news
+              fi-social-hi5:
+                label: fi-social-hi5
+              fi-social-instagram:
+                label: fi-social-instagram
+              fi-social-joomla:
+                label: fi-social-joomla
+              fi-social-lastfm:
+                label: fi-social-lastfm
+              fi-social-linkedin:
+                label: fi-social-linkedin
+              fi-social-medium:
+                label: fi-social-medium
+              fi-social-myspace:
+                label: fi-social-myspace
+              fi-social-orkut:
+                label: fi-social-orkut
+              fi-social-path:
+                label: fi-social-path
+              fi-social-picasa:
+                label: fi-social-picasa
+              fi-social-pinterest:
+                label: fi-social-pinterest
+              fi-social-rdio:
+                label: fi-social-rdio
+              fi-social-reddit:
+                label: fi-social-reddit
+              fi-social-skillshare:
+                label: fi-social-skillshare
+              fi-social-skype:
+                label: fi-social-skype
+              fi-social-smashing-mag:
+                label: fi-social-smashing-mag
+              fi-social-snapchat:
+                label: fi-social-snapchat
+              fi-social-spotify:
+                label: fi-social-spotify
+              fi-social-squidoo:
+                label: fi-social-squidoo
+              fi-social-stack-overflow:
+                label: fi-social-stack-overflow
+              fi-social-steam:
+                label: fi-social-steam
+              fi-social-stumbleupon:
+                label: fi-social-stumbleupon
+              fi-social-treehouse:
+                label: fi-social-treehouse
+              fi-social-tumblr:
+                label: fi-social-tumblr
+              fi-social-twitter:
+                label: fi-social-twitter
+              fi-social-vimeo:
+                label: fi-social-vimeo
+              fi-social-windows:
+                label: fi-social-windows
+              fi-social-xbox:
+                label: fi-social-xbox
+              fi-social-yahoo:
+                label: fi-social-yahoo
+              fi-social-yelp:
+                label: fi-social-yelp
+              fi-social-youtube:
+                label: fi-social-youtube
+              fi-social-zerply:
+                label: fi-social-zerply
+              fi-social-zurb:
+                label: fi-social-zurb
+              fi-sound:
+                label: fi-sound
+              fi-star:
+                label: fi-star
+              fi-stop:
+                label: fi-stop
+              fi-strikethrough:
+                label: fi-strikethrough
+              fi-subscript:
+                label: fi-subscript
+              fi-superscript:
+                label: fi-superscript
+              fi-tablet-landscape:
+                label: fi-tablet-landscape
+              fi-tablet-portrait:
+                label: fi-tablet-portrait
+              fi-target-two:
+                label: fi-target-two
+              fi-target:
+                label: fi-target
+              fi-telephone-accessible:
+                label: fi-telephone-accessible
+              fi-telephone:
+                label: fi-telephone
+              fi-text-color:
+                label: fi-text-color
+              fi-thumbnails:
+                label: fi-thumbnails
+              fi-ticket:
+                label: fi-ticket
+              fi-torso-business:
+                label: fi-torso-business
+              fi-torso-female:
+                label: fi-torso-female
+              fi-torso:
+                label: fi-torso
+              fi-torsos-all-female:
+                label: fi-torsos-all-female
+              fi-torsos-all:
+                label: fi-torsos-all
+              fi-torsos-female-male:
+                label: fi-torsos-female-male
+              fi-torsos-male-female:
+                label: fi-torsos-male-female
+              fi-torsos:
+                label: fi-torsos
+              fi-trash:
+                label: fi-trash
+              fi-trees:
+                label: fi-trees
+              fi-trophy:
+                label: fi-trophy
+              fi-underline:
+                label: fi-underline
+              fi-universal-access:
+                label: fi-universal-access
+              fi-unlink:
+                label: fi-unlink
+              fi-unlock:
+                label: fi-unlock
+              fi-upload-cloud:
+                label: fi-upload-cloud
+              fi-upload:
+                label: fi-upload
+              fi-usb:
+                label: fi-usb
+              fi-video:
+                label: fi-video
+              fi-volume-none:
+                label: fi-volume-none
+              fi-volume-strike:
+                label: fi-volume-strike
+              fi-volume:
+                label: fi-volume
+              fi-web:
+                label: fi-web
+              fi-wheelchair:
+                label: fi-wheelchair
+              fi-widget:
+                label: fi-widget
+              fi-wrench:
+                label: fi-wrench
+              fi-x-circle:
+                label: fi-x-circle
+              fi-x:
+                label: fi-x
+              fi-yen:
+                label: fi-yen
+              fi-zoom-in:
+                label: fi-zoom-in
+              fi-zoom-out:
+                label: fi-zoom-out
