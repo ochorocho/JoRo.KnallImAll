@@ -1,7 +1,7 @@
 {
     "name": "joro/knallimall",
     "type": "typo3-flow-site",
-    "description": "Add description here",
+    "description": "A Foundation 5 based Package for NEOS",
     "require": {
         "typo3/neos": "*",
         "typo3/neos-nodetypes": "*"

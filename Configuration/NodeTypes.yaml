@@ -198,6 +198,70 @@
         reloadIfChanged: true
         inspector:
           group: openwrt
+
+'TYPO3.Neos.NodeTypes:TwoColumn':
+  superTypes:
+    'TYPO3.Neos.NodeTypes:Column': TRUE
+  ui:
+    label: i18n
+    position: 200
+  childNodes:
+    column0:
+      type: 'TYPO3.Neos:ContentCollection'
+    column1:
+      type: 'TYPO3.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: '6'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              '6-6':
+                label: '6 / 6 Columns'
+              '8-4':
+                label: '8 / 4 Columns'
+              '4-8':
+                label: '4 / 8 Columns'
+              '50-50': ~
+              '75-25': ~
+              '25-75': ~
+              '66-33': ~
+              '33-66': ~
+
+'TYPO3.Neos.NodeTypes:ThreeColumn':
+  superTypes:
+    'TYPO3.Neos.NodeTypes:Column': TRUE
+  ui:
+    label: i18n
+    position: 200
+  childNodes:
+    column0:
+      type: 'TYPO3.Neos:ContentCollection'
+    column1:
+      type: 'TYPO3.Neos:ContentCollection'
+    column1:
+      type: 'TYPO3.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: '4-4-4'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              '4-4-4':
+                label: '4 / 4 / 4 Columns'
+              '3-6-3':
+                label: '3 / 6 / 3 Columns'
+              '3-3-6':
+                label: '3 / 3 / 6 Columns'
+              '33-33-33': ~
+              '50-25-25': ~
+              '25-50-25': ~
+              '25-25-50': ~
+
 'TYPO3.Neos.NodeTypes:Page':
   childNodes:
     teaser: {  }
