@@ -262,6 +262,31 @@
               '25-50-25': ~
               '25-25-50': ~
 
+'TYPO3.Neos.NodeTypes:FourColumn':
+  superTypes:
+    'TYPO3.Neos.NodeTypes:Column': TRUE
+  ui:
+    label: i18n
+    position: 200
+  childNodes:
+    column0:
+      type: 'TYPO3.Neos:ContentCollection'
+    column1:
+      type: 'TYPO3.Neos:ContentCollection'
+    column1:
+      type: 'TYPO3.Neos:ContentCollection'
+  properties:
+    layout:
+      defaultValue: '3-3-3-3'
+      ui:
+        reloadIfChanged: TRUE
+        inspector:
+          editorOptions:
+            values:
+              '3-3-3-3':
+                label: '3 / 3 / 3 / 3 Columns'
+              '25-25-25-25': ~
+
 'TYPO3.Neos.NodeTypes:Page':
   childNodes:
     teaser: {  }
