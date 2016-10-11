@@ -10,6 +10,7 @@
     "jquery-fullscreen": "~1.1.4",
     "foundation-icon-fonts": "*",
     "dygraphs": "^1.1.1",
-    "slick-carousel": "^1.6.0"
+    "slick-carousel": "^1.6.0",
+    "fotorama": "^4.6.4"
   }
 }

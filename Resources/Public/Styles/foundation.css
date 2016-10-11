@@ -9022,7 +9022,7 @@ th.hide-for-touch {
 }
 
 .slide-out-down.mui-leave.mui-leave-active {
-  transform: translateY(-100%);
+  transform: translateY(100%);
 }
 
 .slide-out-right.mui-leave {

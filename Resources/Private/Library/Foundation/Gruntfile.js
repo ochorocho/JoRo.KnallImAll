@@ -5,7 +5,6 @@ module.exports = function(grunt) {
 	// SHOW TIME FOR EACH TASK TO FINISH - MAKE COMPILING LOOK FANCY
 	require('time-grunt')(grunt);
 
-	
 	// ARRAY FOR ALL YOUR JS FILES IN PAGE HEADER
 	var jsLibs = ['bower_components/foundation/js/vendor/modernizr.js',
 		'bower_components/foundation/js/vendor/fastclick.js',
