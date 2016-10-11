@@ -1,14 +1,15 @@
 {
-  "name": "JoRo.Bower",
+  "name": "joro.bower",
   "dependencies": {
     "foundation": "~5.5.1",
     "jquery": "~2.1.3",
     "fastclick": "~1.0.6",
-    "foundation-icons": "*",
-    "jquery-placeholder": "~2.1.1",
     "jquery.cookie": "~1.4.1",
     "modernizr": "~2.8.3",
     "motion-ui": "~1.1.0",
-    "jquery-fullscreen": "~1.1.4"
+    "jquery-fullscreen": "~1.1.4",
+    "foundation-icon-fonts": "*",
+    "dygraphs": "^1.1.1",
+    "slick-carousel": "^1.6.0"
   }
 }

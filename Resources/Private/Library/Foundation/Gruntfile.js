@@ -3,10 +3,6 @@ module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-spritesmith');
-	grunt.loadNpmTasks('grunt-selenium-webdriver');
-	grunt.loadNpmTasks('grunt-mkdir');
-	grunt.loadNpmTasks('grunt-phpunit');
 	grunt.loadNpmTasks('grunt-webfont');
     grunt.loadNpmTasks('grunt-autoprefixer');
 	
@@ -60,15 +56,6 @@ module.exports = function(grunt) {
 	// CONFIGURE YOUR TASKS HERE
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-        connect: {
-              all: {
-                options:{
-                    port: 35729,
-                    hostname: "neos.knallimall.org",
-                    keepalive: true
-                }
-            }
-        },
     	webfont: {
 		    icons: {
 		        src: ['bower_components/foundation-icon-fonts/svgs/*.svg','svg/*.svg'],
@@ -78,8 +65,7 @@ module.exports = function(grunt) {
 				    templateOptions: {
 				        baseClass: 'icon',
 				        classPrefix: ''
-				    },
-				//engine: 'node'
+				    }
 		        }
 		    }
 		},
@@ -135,29 +121,9 @@ module.exports = function(grunt) {
 				}
 			}
 		},
-		
-		// PHP UNIT TEST
-		phpunit: {
-			unit: {
-				dir: 'test/*'
-			},
-			options: {
-				bin: 'node_modules/grunt-phpunit/vendor/bin/phpunit',
-				bootstrap: 'node_modules/grunt-phpunit/php/tests/bootstrap.php',
-				colors: true,
-				testdox: true,
-				verbose: true
-			}
-		}, 
 
 		// TRIGGER TASK TO RUN ON "grunt watch"
 		watch: {
-			grunt: {
-				options: {
-					reload: true
-				},
-				files: ['Gruntfile.js']
-			},
 			sass: {
 				files: 'scss/*.scss',
 				tasks: ['sass','autoprefixer']
@@ -166,21 +132,13 @@ module.exports = function(grunt) {
 				files: [
 				jsLibs, jsFoundation, '<%= jshint.all %>'],
 				tasks: ['jshint', 'uglify']
-			},
-			livereload: {
-				options: {
-					livereload: true
-				},
-				// CHOOSE WHICH FILES YOU WANT TO USE IN livereload
-				files: ['../../../Public/JavaScript/libs/header.js', '../../../Public/JavaScript/app.js', '../../../Public/Styles/foundation.css','../../Templates/**/*','../../TypoScript/**/*','../../../../Classes/**/*'],
-				//tasks: ['jshint', 'uglify', 'sass']
 			}
 		}
 	});
 
 	// SETUP TASK - CUSTOM TASK TO CREATE STRUCTURE
 	grunt.registerTask('setup', 'Create files and folders.', function() {
-		
+
 		// CREATE FILES
 		var appScssFile = 'scss/app.scss';
 		if(!grunt.file.isFile(appScssFile)) {
@@ -205,12 +163,7 @@ module.exports = function(grunt) {
 	});
 
 	// TASK SUMMARY
-	grunt.registerTask('build', ['webfont','jshint', 'uglify', 'sass']);
 	grunt.registerTask('default', ['build']);
-    grunt.registerTask('server',[
-        // Open before connect because connect uses keepalive at the moment
-        // so anything after connect wouldn't run
-        'open', 
-        'connect'
-    ]);
+	grunt.registerTask('build', ['webfont','jshint', 'uglify', 'sass']);
+
 };

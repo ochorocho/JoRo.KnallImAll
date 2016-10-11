@@ -3,16 +3,18 @@
 
 @font-face {
 	font-family:"icons";
-	src:url("../Fonts/icons.eot?e006779ec677a943933fe15e0186d745");
+	src:url("../Fonts/icons.eot?3c7faf2e64ecbb7482cea729835bf0b0");
 	src:url("../Fonts/icons.eot?#iefix") format("embedded-opentype"),
-		url("../Fonts/icons.woff?e006779ec677a943933fe15e0186d745") format("woff"),
-		url("../Fonts/icons.ttf?e006779ec677a943933fe15e0186d745") format("truetype");
+		url("../Fonts/icons.woff?3c7faf2e64ecbb7482cea729835bf0b0") format("woff"),
+		url("../Fonts/icons.ttf?3c7faf2e64ecbb7482cea729835bf0b0") format("truetype");
 	font-weight:normal;
 	font-style:normal;
 }
 
 .icon {
-	font-family:"icons";
+	
+		font-family:"icons";
+	
 	display:inline-block;
 	vertical-align:middle;
 	line-height:1;
@@ -21,7 +23,7 @@
 	speak:none;
 	text-decoration:inherit;
 	text-transform:none;
-	text-rendering:optimizeLegibility;
+	text-rendering:auto;
 	-webkit-font-smoothing:antialiased;
 	-moz-osx-font-smoothing:grayscale;
 }
