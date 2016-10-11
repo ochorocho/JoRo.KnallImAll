@@ -1,13 +1,10 @@
 module.exports = function(grunt) {
 	// INCLUDE TASKS PREDEFINED TASKS / MODULES
 	require('load-grunt-tasks')(grunt);
-	grunt.loadNpmTasks('grunt-contrib-jshint');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-webfont');
-    grunt.loadNpmTasks('grunt-autoprefixer');
 	
 	// SHOW TIME FOR EACH TASK TO FINISH - MAKE COMPILING LOOK FANCY
 	require('time-grunt')(grunt);
+
 	
 	// ARRAY FOR ALL YOUR JS FILES IN PAGE HEADER
 	var jsLibs = ['bower_components/foundation/js/vendor/modernizr.js',
