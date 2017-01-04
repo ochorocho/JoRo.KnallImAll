@@ -10,7 +10,7 @@
 		<f:then>
         	<neos:link.node node="{item.node}" class="item active {item.state} {f:if(condition:'{item.subItems}',then:'hasSub',else:' ')}">
         		<i class="icon {item.node.properties.iconsFoundation}"></i>
-        		<label>{item.label}</label>        		
+        		<label class="ellipsis">{item.label}</label>
         	</neos:link.node>
             <f:if condition="{item.subItems}">
                 <div class="submenu"><f:render section="itemsList" arguments="{items: item.subItems}" /></div>
@@ -19,7 +19,7 @@
 		<f:else>
         	<neos:link.node node="{item.node}" class="item normal {item.state} {f:if(condition:'{item.subItems}',then:'hasSub',else:' ')}">
         		<i class="icon {item.node.properties.iconsFoundation}"></i>
-        		<label>{item.label}</label>
+        		<label class="ellipsis">{item.label}</label>
         		
         	</neos:link.node>
             <f:if condition="{item.subItems}">

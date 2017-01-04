@@ -10105,9 +10105,20 @@ body {
 
 #navi {
   float: left;
-  position: fixed;
+  position: absolute;
   left: 0px;
   z-index: 1000;
+  bottom: 0px;
+  height: 100%;
+  top: 0px;
+  width: 74px;
+}
+
+#navi .ellipsis {
+  text-overflow: ellipsis;
+  text-overflow: "...";
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #navi.icon-bar > * {
@@ -10644,7 +10655,8 @@ body, html, .off-canvas-wrap {
     color: #333;
   }
   .content {
-    padding-left: 5.670rem;
+    padding-left: 5.25rem;
+    padding-right: 0.625rem;
     min-height: 100%;
     overflow: hidden;
   }

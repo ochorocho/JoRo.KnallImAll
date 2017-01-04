@@ -3,11 +3,22 @@ body {
 }
 
 #navi {
-	float: left;
-	position: fixed;
+    float: left;
+    position: absolute;
     left: 0px;
     z-index: 1000;
-	
+    bottom: 0px;
+    height: 100%;
+    top: 0px;
+    width: 74px;
+
+    .ellipsis {
+      text-overflow: ellipsis;
+      text-overflow: "...";
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
 	&.icon-bar > * {
         width: auto !important;
         float: none;
@@ -507,7 +518,8 @@ body, html, .off-canvas-wrap {
     }
 
     .content {
-    	padding-left: 5.670rem;
+    	padding-left: rem-calc(84);
+        padding-right: rem-calc(10);
     	min-height: 100%;
         overflow: hidden;
         .neos-contentcollection {
