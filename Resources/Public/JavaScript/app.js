@@ -57,10 +57,12 @@ $(document).foundation({
         toggleable: !0
     }
 }), $(function() {
-    $("#hideContent").click(function() {
-        var a = $(".content"), b = $("#navi");
-        "none" === $(a).css("display") ? (MotionUI.animateIn(a, "fast fade-in"), MotionUI.animateIn(b, "fast fade-in")) : (MotionUI.animateOut(a, "fast fade-out"), 
-        MotionUI.animateOut(b, "fast fade-out"));
+    $("#hideContent").click(function(a) {
+        a.preventDefault();
+        var b = $(".content"), c = $("#navi");
+        "none" === $(b).css("display") ? (MotionUI.animateIn(b, "fast fade-in"), MotionUI.animateIn(c, "fast fade-in"), 
+        c.addClass("hide-for-small")) : (MotionUI.animateOut(b, "fast fade-out"), MotionUI.animateOut(c, "fast fade-out"), 
+        c.removeClass("hide-for-small"));
     }), $("#navi > a").click(function(a) {
         $(this).hasClass("hasSub") && (a.preventDefault(), a.stopPropagation(), $(this).hasClass("open") ? MotionUI.animateOut($(".submenu"), "fast slide-out-left", function() {
             $("#navi > a").removeClass("open");

@@ -98,16 +98,19 @@ $(document).foundation({
 
 
 $(function() {  
-    $('#hideContent').click(function() {
+    $('#hideContent').click(function(e) {
+        e.preventDefault();
         var content = $('.content');
         var navi = $('#navi');
 
         if ($(content).css('display') === 'none') {
             MotionUI.animateIn(content, 'fast fade-in');
             MotionUI.animateIn(navi, 'fast fade-in');
+            navi.addClass('hide-for-small');
         } else {
             MotionUI.animateOut(content, 'fast fade-out');
             MotionUI.animateOut(navi, 'fast fade-out');
+            navi.removeClass('hide-for-small');
         }
     }); 
     $('#navi > a').click(function(e) {
