@@ -11,6 +11,7 @@
     "foundation-icon-fonts": "*",
     "dygraphs": "^1.1.1",
     "slick-carousel": "^1.6.0",
-    "fotorama": "^4.6.4"
+    "fotorama": "^4.6.4",
+    "gmap3": "^7.2.0"
   }
 }
