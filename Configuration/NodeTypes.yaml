@@ -13,6 +13,7 @@
 'TYPO3.NeosDemoTypo3Org:Carousel': {  }
 'TYPO3.Neos.NodeTypes:ContentReferences': {  }
 'TYPO3.Neos.NodeTypes:Menu': {  }
+
 'JoRo.KnallImAll:GpxTracks':
   superTypes:
     'TYPO3.Neos:Plugin': true
@@ -57,6 +58,7 @@
         reloadIfChanged: true
         inspector:
           group: TagGroup
+
 'JoRo.KnallImAll:BikeTour':
   superTypes:
     'TYPO3.Neos:Plugin': true

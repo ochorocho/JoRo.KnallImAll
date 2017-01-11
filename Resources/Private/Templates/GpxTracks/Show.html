@@ -15,7 +15,13 @@
         </div>
     </f:for>
 </div>
+
+
 <script type="text/javascript">
+
+    $.gmap3({
+        key: 'AIzaSyC5cyabfXmf_26_dPFEcF4pvB0cBZ0W-y4'
+    });
 
 $('.slick{currentNode}').slick({
     infinite: false,
@@ -34,21 +40,32 @@ $('.slick{currentNode}').slick({
         {
           breakpoint: 640,
           settings: {
-            slidesToShow: 4,
-            slidesToScroll: 4
-          }
-        }
+        slidesToShow: 4,
+                slidesToScroll: 4
+    }
+    }
     ],
     lazyLoad: 'progressive',
-    prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
-    nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
-});
+            prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
+            nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
+    });
 
-MARKER = [
-<f:for each="{images}" as="image" iteration="markerIterator">
-{latLng:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image:"{image.filepath}", width: 500)}, (default)], [{media:uri.image(image:"{image.filepath}", width: 800)}, (large)]">{media:image(asset: image.filepath, alt: "{image.label}", width: 275, height: 275)}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
-</f:for>
-]
+/*
+    MARKER = [
+        <f:for each="{images}" as="image" iteration="markerIterator">
+            {latLng:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image:"{image.filepath}", width: 500)}, (default)], [{media:uri.image(image:"{image.filepath}", width: 800)}, (large)]">{media:image(asset: image.filepath, alt: "{image.label}", width: 275, height: 275)}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
+        </f:for>
+    ]
+*/
+
+    MARKER = [
+            <f:for each="{images}" as="image" iteration="markerIterator">
+            {position:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image:"{image.filepath}", width: 500)}, (default)], [{media:uri.image(image:"{image.filepath}", width: 800)}, (large)]">{media:image(asset: image.filepath, alt: "{image.label}", width: 275, height: 275)}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
+    </f:for>
+    ]
+
+
+
 
 GMAP = [
 
@@ -56,7 +73,6 @@ GMAP = [
 	<f:if condition="{iterator.isLast}">
 		<f:then>
         {
-    		options:{
     			strokeColor: "#12ff00",
     			strokeOpacity: 1.0,
     			strokeWeight: 2,
@@ -73,12 +89,10 @@ GMAP = [
                     	</f:if>
                     </f:for>
                 ]
-            }
 		}
 		</f:then>
 		<f:else>
         {
-    		options:{
     			strokeColor: "#12ff00",
     			strokeOpacity: 1.0,
     			strokeWeight: 2,
@@ -95,7 +109,6 @@ GMAP = [
                     	</f:if>
                     </f:for>
                 ]
-            }
 		},
 		</f:else>
 	</f:if>
@@ -103,345 +116,21 @@ GMAP = [
 ]
 
 
-$(function() {
-       var $selector = '.lightbox'; //class for your infobox buttons list
-    $('.gpxTracks').on('click', $selector, function(e){
-       e.preventDefault();
-       $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.fullScreen(false);
+    var markers = eval('MARKER');
+    var line = eval('GMAP');
 
-       var fotorama = '<div style="display:none" class="fotorama" data-fit="contain" data-auto="false" data-width="100%" data-minwidth="100%" data-maxwidth="100%" data-minheight="100%" data-maxheight="100%" data-keyboard="true" data-nav="thumbs" data-startindex="' + $(this).attr('data-index') + '">';
-       $('.slick{currentNode} .openPoi').each(function() {
-          var foto = $(this).attr('data-fotorama').split(',');
-          fotorama += '<div data-thumb-width="100" data-thumb-height="100" data-thumb="' + foto[1] + '" data-img="' + foto[0] + '"><div class="iconBar"><a class="mapFotorama" data-location="' + foto[2] + ',' + foto[3] + '"><i class="icon fi-marker"></i></a><a class="fotoramaFull" ><i class="icon fi-arrows-out"></i></a><a class="right close-fotorama" aria-label="Close">&#215;</a></div></div>';
-       });
-       
-        $('body').prepend(fotorama);
-        MotionUI.animateIn($('.fotorama'), 'slow fade-in');
-        $('.fotorama').fotorama();
-
-        $('.fotorama').on('fotorama:showend ', function (e, fotorama, extra) {
-            $('.fotorama .close-fotorama').on('click', function(e){
-                var fotoramaAni = $('.fotorama');
-                MotionUI.animateOut(fotoramaAni, 'slow fade-out', function() {
-                    fotorama.destroy();
-                    $('.fotorama').remove();    
-                });
-            });
-        });
-
-        var $fotoramaFull = '.fotoramaFull';
-        $('.fotorama').on('click', $fotoramaFull, function(e){
-            if(!$(document).fullScreen()){
-                $(this).find('i').removeClass('fi-arrows-out').addClass('fi-arrows-in');
-                $('.fotorama').fullScreen(true);
-            } else {
-                $(this).find('i').removeClass('fi-arrows-in').addClass('fi-arrows-out');
-                $('.fotorama').fullScreen(false);
-            }
-        });
-
-        $(document).on("fullscreenchange", function() {
-            if(!$(document).fullScreen()){
-                $('.fotoramaFull').find('i').removeClass('fi-arrows-in').addClass('fi-arrows-out');
-            }
-        });
-
-
-        var $selector = '.mapFotorama'; //class for your infobox buttons list 
-        $('.fotorama').on('click', $selector, function(e){
-            var locationEl = $(this).parent().parent().find('.location');
-            if(locationEl.length) {
-                console.log(locationEl);
-
-//                 $(locationEl).addClass('wiggle');
-                MotionUI.animateOut(locationEl, 'fast bounce-in-out slide-out-left', function() {
-                    locationEl.remove();
-                });
-
-            } else {
-                $(this).parent().append('<div class="location" style="display:none"></div>');
-                
-                var location = $(this).attr('data-location').split(',');
-
-                var latlng = [location[0],location[1]];
-
-                MotionUI.animateIn($(this).parent().parent().find('.location'), 'fast bounce-in slide-in-left', function() {
-                   $(this).parent().parent().find('.location').gmap3({
-                        marker:{
-                            latLng: latlng
-                         },
-                        map:{
-                            options:{
-                                zoom:4,
-                                draggable: false
-                            }
-                        }
-                    });
-
-                });                
-            }
-
-            
-        });
-    });
-    
-    $('.gpxTracks').each(function() {
-        $(this).prepend('<div class="spinner ani"><i class="icon fi-aus"></i></div>');
-    });
-
-});
-
-$(window).load(function() {
-    $('.gpxTracks .spinner').remove();
-	var mapId = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>;
-	var path = eval('GMAP');
-	var markers = eval('MARKER');
-    
-   $(".openPoi").click(function() {
-//         $("html,body").animate({ scrollTop: $(mapId).position().top },"fast");
-        var id = $(this).attr('href');
-        var marker = $(mapId).gmap3({ get: { id: id } });
-        google.maps.event.trigger(marker,'click');
-
-        return false;
-    });
-	// $(document).foundation('dropdown', 'reflow');
-	
-	var fullscreenBt = '<a id="fullscreenTrack" class="mapBt"><i class="icon size-18 fi-arrows-out"></i></a>';
-	if(Foundation.utils.is_small_only()) {
-    	fullscreenBt = '';
-	}
-	
-	$(mapId).gmap3({
-        panel:{
-            options:{
-                content: '<div id="panel-box">' +
-                        '<a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="mapBt">' +
-                            '<i class="icon size-18 fi-map"></i>' +
-                        '</a>' +
-                        '<ul id="drop1" class="f-dropdown text-left" data-dropdown-content aria-hidden="true" tabindex="-1">' + 
-                            '<li><a id="typeMap">Map</a></li>' +
-                            '<li><a id="typeSatellite">Satellite</a></li>' + 
-                            '<li><a id="typeTerrain">Terrain</a></li>' +
-                            '<li><a id="typeHybrid">Hybrid</a></li>' +
-                        '</ul>' + 
-                        '<a id="hideTrack" class="mapBt"><i class="icon size-18 fi-eye"></i></a>' +
-                        fullscreenBt +
-                        '</div>',
-                top: true,
-                right: true
-            }
-        }, 
-		map:{
-			center: true,
-			zoom: 10,
-            callback: function (e) {
-                $(document).foundation('dropdown', 'reflow');
-            }
-		},
-		polyline:{
-            values: path
-		},
-        marker:{
-            values: markers,
-            options:{
-              draggable: false
-            },
-            events:{
-                closeclick: function(infowindow){
-                    var infowindow = $(this).gmap3({get:{name:"infowindow"}});
-                    if (infowindow){
-                      infowindow.close();
-                    }
+    $('.gpxTracks').gmap3({
+                address:"Paris, France",
+                zoom: 10,
+                mapTypeId: google.maps.MapTypeId.HYBRID,
+                mapTypeControl: true,
+                mapTypeControlOptions: {
+                    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
                 },
-                click: function(marker, event, context){
-                    var map = $(this).gmap3("get"),
-                    infowindow = $(this).gmap3({get:{name:"infowindow"}});
-                    if (infowindow){
-                        infowindow.open(map, marker);
-                        infowindow.setContent(context.data);
-                    } else {
-                        $(this).gmap3({
-                            infowindow:{
-                              anchor:marker, 
-                              options:{content: context.data}
-                            }
-                        });
-                    }                
-                }
-            }
-        },
-		autofit:{} 
-	});
-
-    // MAP TYPE
-    var $selector = '#typeMap'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        var map = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3('get');
-        map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-    });
-
-    var $selector = '#typeSatellite'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        var map = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3('get');
-        map.setMapTypeId(google.maps.MapTypeId.SATELLITE);
-    });
-
-    var $selector = '#typeTerrain'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        var map = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3('get');
-        map.setMapTypeId(google.maps.MapTypeId.TERRAIN);
-    });
-
-    var $selector = '#typeHybrid'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        var map = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3('get');
-        map.setMapTypeId(google.maps.MapTypeId.HYBRID);
-    });
-
-    // HIDE TRACK MARKER 
-    var $selector = '#hideTrack'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        $(this).replaceWith('<a id="hideTrackOut" class="mapBt"><i class="icon size-18 fi-eye"></i></a>')
-        $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3({
-            clear: {
-                name:["marker"],
-            }
-        });
-    });
-
-    var $selector = '#hideTrackOut'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        $(this).replaceWith('<a id="hideTrack" class="mapBt"><i class="icon size-18 fi-eye"></i></a>')
-        $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3({
-            clear: {
-                name:["marker"],
-            },
-            marker:{
-                values: markers,
-                options:{
-                  draggable: false
-                },
-                events:{
-                    closeclick: function(infowindow){
-                        var infowindow = $(this).gmap3({get:{name:"infowindow"}});
-                        if (infowindow){
-                          infowindow.close();
-                        }
-                    },
-                    click: function(marker, event, context){
-                        var map = $(this).gmap3("get"),
-                        infowindow = $(this).gmap3({get:{name:"infowindow"}});
-                        if (infowindow){
-                            infowindow.open(map, marker);
-                            infowindow.setContent(context.data);
-                        } else {
-                            $(this).gmap3({
-                                infowindow:{
-                                  anchor:marker, 
-                                  options:{content: context.data}
-                                }
-                            });
-                        }                
-                    }
-                }
-            }
-        });
-    });
-
-    // FULLSCREEN
-    var $selector = '#fullscreenTrack'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-       $(this).replaceWith('<a id="fullscreenTrackOut" class="mapBt"><i class="icon size-18 fi-arrows-in"></i></a>')
-       $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.parent().fullScreen(true);
-       setTimeout(function() {
-        $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3({
-            clear: {
-                name:["panel"],
-            },
-            panel:{
-                options:{
-                    content: '<div id="panel-box">' + $('#panel-box').html() + '</div>',
-                    top: true,
-                    right: true
-                }
-            },
-            autofit:{}
-        });
-       },400);
-
-    });
-
-    var $selector = '#fullscreenTrackOut'; //class for your infobox buttons list 
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.on('click', $selector, function(e){
-        $(this).replaceWith('<a id="fullscreenTrack" class="mapBt"><i class="icon size-18 fi-arrows-out"></i></a>')
-        $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.fullScreen(false).gmap3({
-            clear: {
-                name:["panel"],
-            },
-            panel:{
-                options:{
-                    content: '<div id="panel-box">' + $('#panel-box').html() + '</div>',
-                    top: true,
-                    right: true
-                }
-            }
-        });
-    });
-
-
-    $(document).on("fullscreenchange", function() {
-        if(!$(document).fullScreen()){
-            $<![CDATA[(]]>"#track{currentNode} #fullscreenTrackOut"<![CDATA[)]]>.replaceWith('<a id="fullscreenTrack" class="mapBt"><i class="icon size-18 fi-arrows-out"></i></a>');
-        }
-    });
-
-	var huhu = $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.attr('id');
-
-	var map = $("#track{currentNode}").gmap3('get');
-    var latLngDEF = new google.maps.LatLng(path[0][0], path[0][1]);
-
-	var marker = new google.maps.Marker({
-		position: latLngDEF,
-		map: map,
-		title: 'BikeMap'
-	});
-});
-
-
-
-$(window).resize(function() {
-	var fullscreenBt = '<a id="fullscreenTrack" class="mapBt"><i class="icon size-18 fi-arrows-out"></i></a>';
-	if(Foundation.utils.is_small_only()) {
-    	fullscreenBt = '';
-	}
-    var panel = '<div id="panel-box">' +
-            '<a data-dropdown="drop1" aria-controls="drop1" aria-expanded="false" class="mapBt">' +
-                '<i class="icon size-18 fi-map"></i>' +
-            '</a>' +
-            '<ul id="drop1" class="f-dropdown text-left" data-dropdown-content aria-hidden="true" tabindex="-1">' + 
-                '<li><a id="typeMap">Map</a></li>' +
-                '<li><a id="typeSatellite">Satellite</a></li>' + 
-                '<li><a id="typeTerrain">Terrain</a></li>' +
-                '<li><a id="typeHybrid">Hybrid</a></li>' +
-            '</ul>' + 
-            '<a id="hideTrack" class="mapBt"><i class="icon size-18 fi-eye"></i></a>' +
-            fullscreenBt +
-            '</div>';
-
-    $<![CDATA[(]]>"#track{currentNode}"<![CDATA[)]]>.gmap3({
-        clear: {
-            name:["panel"],
-        },
-        panel:{
-            options:{
-                content: '<div id="panel-box">' + panel + '</div>',
-                top: true,
-                right: true
-            }
-        }
-    });
-});
-
+                navigationControl: true,
+                scrollwheel: true,
+                streetViewControl: true
+            }).marker(markers).polyline(line)
+            .fit();
 
 </script>
