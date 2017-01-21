@@ -1,5 +1,7 @@
 {
   "name": "JoRo.Foundation",
+  "description": "Modules for JoRo.KnallImAll NEOS Site Package",
+  "readme": "README.md",
   "version": "0.0.1",
   "repository": {
     "type": "git",
