@@ -16,7 +16,6 @@
     "grunt-sass": "^1.1.0-beta",
     "grunt-webfont": "^1.6.0",
     "load-grunt-tasks": "^3.5.2",
-    "node-sass": "~2.0.1",
     "time-grunt": "~0.3.2"
   }
 }
