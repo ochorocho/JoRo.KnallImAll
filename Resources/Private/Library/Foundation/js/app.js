@@ -97,6 +97,8 @@ $(document).foundation({
 });
 
 
+
+
 $(function() {  
     $('#hideContent').click(function(e) {
         e.preventDefault();

@@ -100,20 +100,55 @@ module.exports = function(grunt) {
 			all: ['Gruntfile.js', jsApp, 'js/header.js']
 		},
 		uglify: {
-			options: {
-				sourceMap: false,
-				beautify: {
-					width: 80,
-					// MAKE JS FILES READABLE true/false
-					beautify: true
-				},
-			},
 			dist: {
+				options: {
+					sourceMap: false,
+					beautify: {
+						width: 80,
+						// MAKE JS FILES READABLE true/false
+						beautify: false
+					},
+				},
 				files: {
 					// THE NAME AND LOCATION OF JS FILES TO BE WRITTEN to : from Array
 					'../../../Public/JavaScript/header.js': [jsLibs],
 					'../../../Public/JavaScript/foundation.js': [jsFoundation],
 					'../../../Public/JavaScript/app.js': [jsApp]
+				}
+			},
+			dev: {
+				options: {
+					sourceMap: true,
+					beautify: {
+						width: 80,
+						// MAKE JS FILES READABLE true/false
+						beautify: true
+					},
+				},
+				files: {
+					// THE NAME AND LOCATION OF JS FILES TO BE WRITTEN to : from Array
+					'../../../Public/JavaScript/header.js': [jsLibs],
+					'../../../Public/JavaScript/foundation.js': [jsFoundation],
+					'../../../Public/JavaScript/app.js': [jsApp]
+				}
+			},
+			my_target: {
+				options: {
+					beautify: true
+				},
+				files: {
+					'dest/output.min.js': ['src/input.js']
+				}
+			},
+			my_advanced_target: {
+				options: {
+					beautify: {
+						width: 80,
+						beautify: true
+					}
+				},
+				files: {
+					'dest/output.min.js': ['src/input.js']
 				}
 			}
 		},
@@ -127,7 +162,7 @@ module.exports = function(grunt) {
 			js: {
 				files: [
 				jsLibs, jsFoundation, '<%= jshint.all %>'],
-				tasks: ['jshint', 'uglify']
+				tasks: ['jshint', 'uglify:dev']
 			}
 		}
 	});
@@ -160,6 +195,6 @@ module.exports = function(grunt) {
 
 	// TASK SUMMARY
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['webfont','jshint', 'uglify', 'sass']);
+	grunt.registerTask('build', ['webfont','jshint', 'uglify:dist', 'sass','autoprefixer']);
 
 };
