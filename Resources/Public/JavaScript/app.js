@@ -7,16 +7,16 @@ function makeFotorama() {
             c = "false" === a[2] || "false" === a[3] ? "" : '<a class="mapFotorama" data-location="' + a[2] + "," + a[3] + '"><i class="icon fi-marker"></i></a>', 
             b += '<div data-thumb-width="100" data-thumb-height="100" data-thumb="' + a[1] + '" data-img="' + a[0] + '"><div class="iconBar">' + c + '<a class="fotoramaFull"><i class="icon fi-arrows-out"></i></a><a class="right close-fotorama" aria-label="Close">&#215;</a></div></div>';
         }), $("body").append(b), MotionUI.animateIn($(".fotorama"), "slow fade-in"), $(".fotorama").fotorama(), 
-        $(".fotorama").on("fotorama:showend ", function(a, b) {
-            $(".fotorama .close-fotorama").on("click", function() {
-                var a = $(".fotorama");
-                MotionUI.animateOut(a, "slow fade-out", function() {
+        $(".fotorama").on("fotorama:showend ", function(a, b, c) {
+            $(".fotorama .close-fotorama").on("click", function(a) {
+                var c = $(".fotorama");
+                MotionUI.animateOut(c, "slow fade-out", function() {
                     b.destroy(), $(".fotorama").remove();
                 });
             });
         });
         var c = ".fotoramaFull", d = $(".fotorama");
-        d.on("click", c, function() {
+        d.on("click", c, function(a) {
             $(document).fullScreen() ? ($(this).find("i").removeClass("fi-arrows-in").addClass("fi-arrows-out"), 
             d.fullScreen(!1)) : ($(this).find("i").removeClass("fi-arrows-out").addClass("fi-arrows-in"), 
             d.fullScreen(!0));
@@ -24,17 +24,17 @@ function makeFotorama() {
             $(document).fullScreen() || d.find("i").removeClass("fi-arrows-in").addClass("fi-arrows-out");
         });
         var e = ".mapFotorama";
-        $(".fotorama").on("click", e, function() {
-            var a = $(this).parent().parent().find(".location");
-            if (a.length) console.log(a), MotionUI.animateOut(a, "fast bounce-in-out slide-out-left", function() {
-                a.remove();
+        $(".fotorama").on("click", e, function(a) {
+            var b = $(this).parent().parent().find(".location");
+            if (b.length) console.log(b), MotionUI.animateOut(b, "fast bounce-in-out slide-out-left", function() {
+                b.remove();
             }); else {
                 $(this).parent().append('<div class="location" style="display:none"></div>');
-                var b = $(this).attr("data-location").split(","), c = [ b[0], b[1] ];
+                var c = $(this).attr("data-location").split(","), d = [ c[0], c[1] ];
                 MotionUI.animateIn($(this).parent().parent().find(".location"), "fast bounce-in slide-in-left", function() {
                     $(this).parent().parent().find(".location").gmap3({
                         marker: {
-                            latLng: c
+                            latLng: d
                         },
                         map: {
                             options: {

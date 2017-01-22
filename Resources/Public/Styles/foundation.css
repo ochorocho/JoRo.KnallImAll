@@ -3397,7 +3397,7 @@ form .row textarea.columns {
 
 /* Label Styles */
 label {
-  color: #4d4d4d;
+  color: #4d4c4c;
   cursor: pointer;
   display: block;
   font-size: 0.875rem;
@@ -3710,7 +3710,7 @@ select.radius {
 }
 
 select:focus {
-  background-color: #f3f3f3;
+  background-color: #f3f2f2;
   border-color: #999999;
 }
 
@@ -4914,7 +4914,7 @@ ul.pagination li:hover a,
 ul.pagination li a:focus,
 ul.pagination li:hover button,
 ul.pagination li button:focus {
-  background: #e6e6e6;
+  background: #e6e5e5;
 }
 
 ul.pagination li.unavailable a, ul.pagination li.unavailable button {
@@ -5485,7 +5485,7 @@ ul.pagination li {
   height: 0;
   list-style: none;
   padding: 0;
-  border-top-color: #e6e6e6;
+  border-top-color: #e6e5e5;
 }
 
 .side-nav li.heading {
@@ -6364,7 +6364,7 @@ meta.foundation-mq-topbar {
 
 .top-bar-section .divider,
 .top-bar-section [role="separator"] {
-  border-top: solid 1px #1a1a1a;
+  border-top: solid 1px #1a1919;
   clear: both;
   height: 1px;
   width: 100%;
@@ -7578,7 +7578,7 @@ blockquote p {
 }
 
 .tab-bar .menu-icon span:hover:after {
-  box-shadow: 0 0 0 1px #b3b3b3, 0 7px 0 1px #b3b3b3, 0 14px 0 1px #b3b3b3;
+  box-shadow: 0 0 0 1px #b3b2b2, 0 7px 0 1px #b3b2b2, 0 14px 0 1px #b3b2b2;
 }
 
 .left-off-canvas-menu {

@@ -14,7 +14,7 @@ window.Modernizr = function(a, b, c) {
     function h(a, b) {
         for (var d in a) {
             var e = a[d];
-            if (!g(e, "-") && t[e] !== c) return "pfx" == b ? e : !0;
+            if (!g(e, "-") && t[e] !== c) return "pfx" != b || e;
         }
         return !1;
     }
@@ -165,7 +165,7 @@ window.Modernizr = function(a, b, c) {
         return !!j("transform");
     }, C.csstransforms3d = function() {
         var a = !!j("perspective");
-        return a && "webkitPerspective" in q.style && H("@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}", function(b) {
+        return a && "webkitPerspective" in q.style && H("@media (transform-3d),(-webkit-transform-3d){#modernizr{left:9px;position:absolute;height:3px;}}", function(b, c) {
             a = 9 === b.offsetLeft && 3 === b.offsetHeight;
         }), a;
     }, C.csstransitions = function() {
@@ -186,7 +186,7 @@ window.Modernizr = function(a, b, c) {
         try {
             (c = !!a.canPlayType) && (c = new Boolean(c), c.ogg = a.canPlayType('video/ogg; codecs="theora"').replace(/^no$/, ""), 
             c.h264 = a.canPlayType('video/mp4; codecs="avc1.42E01E"').replace(/^no$/, ""), c.webm = a.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, ""));
-        } catch (d) {}
+        } catch (a) {}
         return c;
     }, C.audio = function() {
         var a = b.createElement("audio"), c = !1;
@@ -194,7 +194,7 @@ window.Modernizr = function(a, b, c) {
             (c = !!a.canPlayType) && (c = new Boolean(c), c.ogg = a.canPlayType('audio/ogg; codecs="vorbis"').replace(/^no$/, ""), 
             c.mp3 = a.canPlayType("audio/mpeg;").replace(/^no$/, ""), c.wav = a.canPlayType('audio/wav; codecs="1"').replace(/^no$/, ""), 
             c.m4a = (a.canPlayType("audio/x-m4a;") || a.canPlayType("audio/aac;")).replace(/^no$/, ""));
-        } catch (d) {}
+        } catch (a) {}
         return c;
     }, C.localstorage = function() {
         try {
@@ -279,7 +279,7 @@ window.Modernizr = function(a, b, c) {
                     var a = b.createDocumentFragment();
                     return "undefined" == typeof a.cloneNode || "undefined" == typeof a.createDocumentFragment || "undefined" == typeof a.createElement;
                 }();
-            } catch (c) {
+            } catch (a) {
                 j = !0, k = !0;
             }
         }();
@@ -418,10 +418,10 @@ window.Modernizr = function(a, b, c) {
         !0;
     }, a.prototype.touchHasMoved = function(a) {
         var b = a.changedTouches[0], c = this.touchBoundary;
-        return Math.abs(b.pageX - this.touchStartX) > c || Math.abs(b.pageY - this.touchStartY) > c ? !0 : !1;
+        return Math.abs(b.pageX - this.touchStartX) > c || Math.abs(b.pageY - this.touchStartY) > c;
     }, a.prototype.onTouchMove = function(a) {
-        return this.trackingClick ? ((this.targetElement !== this.getTargetElementFromEventTarget(a.target) || this.touchHasMoved(a)) && (this.trackingClick = !1, 
-        this.targetElement = null), !0) : !0;
+        return !this.trackingClick || ((this.targetElement !== this.getTargetElementFromEventTarget(a.target) || this.touchHasMoved(a)) && (this.trackingClick = !1, 
+        this.targetElement = null), !0);
     }, a.prototype.findControl = function(a) {
         return void 0 !== a.control ? a.control : a.htmlFor ? document.getElementById(a.htmlFor) : a.querySelector("button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea");
     }, a.prototype.onTouchEnd = function(a) {
@@ -442,18 +442,18 @@ window.Modernizr = function(a, b, c) {
         } else if (this.needsFocus(k)) return a.timeStamp - g > 100 || d && window.top !== window && "input" === h ? (this.targetElement = null, 
         !1) : (this.focus(k), this.sendClick(k, a), d && "select" === h || (this.targetElement = null, 
         a.preventDefault()), !1);
-        return d && !e && (i = k.fastClickScrollParent, i && i.fastClickLastScrollTop !== i.scrollTop) ? !0 : (this.needsClick(k) || (a.preventDefault(), 
+        return !(!d || e || (i = k.fastClickScrollParent, !i || i.fastClickLastScrollTop === i.scrollTop)) || (this.needsClick(k) || (a.preventDefault(), 
         this.sendClick(k, a)), !1);
     }, a.prototype.onTouchCancel = function() {
         this.trackingClick = !1, this.targetElement = null;
     }, a.prototype.onMouse = function(a) {
-        return this.targetElement ? a.forwardedTouchEvent ? !0 : !a.cancelable || this.needsClick(this.targetElement) && !this.cancelNextClick ? !0 : (a.stopImmediatePropagation ? a.stopImmediatePropagation() : a.propagationStopped = !0, 
-        a.stopPropagation(), a.preventDefault(), !1) : !0;
+        return !this.targetElement || (!!a.forwardedTouchEvent || (!(a.cancelable && (!this.needsClick(this.targetElement) || this.cancelNextClick)) || (a.stopImmediatePropagation ? a.stopImmediatePropagation() : a.propagationStopped = !0, 
+        a.stopPropagation(), a.preventDefault(), !1)));
     }, a.prototype.onClick = function(a) {
         var b;
         return this.trackingClick ? (this.targetElement = null, this.trackingClick = !1, 
-        !0) : "submit" === a.target.type && 0 === a.detail ? !0 : (b = this.onMouse(a), 
-        b || (this.targetElement = null), b);
+        !0) : "submit" === a.target.type && 0 === a.detail || (b = this.onMouse(a), b || (this.targetElement = null), 
+        b);
     }, a.prototype.destroy = function() {
         var a = this.layer;
         c && (a.removeEventListener("mouseover", this.onMouse, !0), a.removeEventListener("mousedown", this.onMouse, !0), 
@@ -474,8 +474,8 @@ window.Modernizr = function(a, b, c) {
             if (-1 !== b.content.indexOf("user-scalable=no")) return !0;
             if (document.documentElement.scrollWidth <= window.outerWidth) return !0;
         }
-        return "none" === a.style.msTouchAction || "manipulation" === a.style.touchAction ? !0 : (f = +(/Firefox\/([0-9]+)/.exec(navigator.userAgent) || [ , 0 ])[1], 
-        f >= 27 && (b = document.querySelector("meta[name=viewport]"), b && (-1 !== b.content.indexOf("user-scalable=no") || document.documentElement.scrollWidth <= window.outerWidth)) ? !0 : "none" === a.style.touchAction || "manipulation" === a.style.touchAction ? !0 : !1);
+        return "none" === a.style.msTouchAction || "manipulation" === a.style.touchAction || (f = +(/Firefox\/([0-9]+)/.exec(navigator.userAgent) || [ , 0 ])[1], 
+        !!(f >= 27 && (b = document.querySelector("meta[name=viewport]"), b && (-1 !== b.content.indexOf("user-scalable=no") || document.documentElement.scrollWidth <= window.outerWidth))) || ("none" === a.style.touchAction || "manipulation" === a.style.touchAction));
     }, a.attach = function(b, c) {
         return new a(b, c);
     }, "function" == typeof define && "object" == typeof define.amd && define.amd ? define(function() {
