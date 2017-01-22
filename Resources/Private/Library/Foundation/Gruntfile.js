@@ -56,6 +56,7 @@ module.exports = function(grunt) {
 		    icons: {
 		        src: ['bower_components/foundation-icon-fonts/svgs/*.svg','svg/*.svg'],
 		        dest: '../../../Public/Fonts/',
+		        destCss: '../../../Public/Styles',
 				destScss: 'scss/',
 		        options: {
 					stylesheet: 'scss',
