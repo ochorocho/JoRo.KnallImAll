@@ -70,12 +70,21 @@ module.exports = function(grunt) {
 		sass: {
 			options: {
 				includePaths: ['bower_components/foundation/scss','bower_components/motion-ui','bower_components/fotorama'],
-// 				require: 'sass-css-importer'
 			},
 			dist: {
 				options: {
 					// CAN BE: nested, expanded, compact, compressed.
-					outputStyle: 'expanded',
+					outputStyle: 'compressed',
+					sourceMap: false,
+				},
+				files: {
+					'../../../Public/Styles/foundation.css': 'scss/app.scss'
+				}
+			},
+			dev: {
+				options: {
+					// CAN BE: nested, expanded, compact, compressed.
+					outputStyle: 'compact',
 					sourceMap: false,
 				},
 				files: {
@@ -131,25 +140,6 @@ module.exports = function(grunt) {
 					'../../../Public/JavaScript/foundation.js': [jsFoundation],
 					'../../../Public/JavaScript/app.js': [jsApp]
 				}
-			},
-			my_target: {
-				options: {
-					beautify: true
-				},
-				files: {
-					'dest/output.min.js': ['src/input.js']
-				}
-			},
-			my_advanced_target: {
-				options: {
-					beautify: {
-						width: 80,
-						beautify: true
-					}
-				},
-				files: {
-					'dest/output.min.js': ['src/input.js']
-				}
 			}
 		},
 
@@ -157,7 +147,7 @@ module.exports = function(grunt) {
 		watch: {
 			sass: {
 				files: 'scss/*.scss',
-				tasks: ['sass','autoprefixer']
+				tasks: ['sass:dev','autoprefixer']
 			},
 			js: {
 				files: [
@@ -195,6 +185,6 @@ module.exports = function(grunt) {
 
 	// TASK SUMMARY
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['webfont','jshint', 'uglify:dist', 'sass','autoprefixer']);
+	grunt.registerTask('build', ['webfont','jshint', 'uglify:dist', 'sass:dist']);
 
 };
