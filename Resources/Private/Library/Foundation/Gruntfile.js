@@ -56,8 +56,9 @@ module.exports = function(grunt) {
 		    icons: {
 		        src: ['bower_components/foundation-icon-fonts/svgs/*.svg','svg/*.svg'],
 		        dest: '../../../Public/Fonts/',
-		        destCss: '../../../Public/Styles',
+				destScss: 'scss/',
 		        options: {
+					stylesheet: 'scss',
 				    templateOptions: {
 				        baseClass: 'icon',
 				        classPrefix: ''
@@ -185,6 +186,6 @@ module.exports = function(grunt) {
 
 	// TASK SUMMARY
 	grunt.registerTask('default', ['build']);
-	grunt.registerTask('build', ['webfont','jshint', 'uglify:dist', 'sass:dist']);
+	grunt.registerTask('build', ['webfont','jshint', 'uglify:dist', 'sass:dist', 'autoprefixer']);
 
 };
