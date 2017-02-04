@@ -4,19 +4,19 @@
 # only those that are rendered in your TypoScript and Template
 # are visible on your page.
 
-'TYPO3.NeosDemoTypo3Org:Flickr': {  }
-'TYPO3.NeosDemoTypo3Org:Registration': {  }
-'TYPO3.NeosDemoTypo3Org:ChapterMenu': {  }
-'TYPO3.NeosDemoTypo3Org:Chapter': {  }
-'TYPO3.Neos.NodeTypes:Form': {  }
-'TYPO3.Neos.NodeTypes:AssetList': {  }
-'TYPO3.NeosDemoTypo3Org:Carousel': {  }
-'TYPO3.Neos.NodeTypes:ContentReferences': {  }
-'TYPO3.Neos.NodeTypes:Menu': {  }
+'Neos.NeosDemoTypo3Org:Flickr': {  }
+'Neos.NeosDemoTypo3Org:Registration': {  }
+'Neos.NeosDemoTypo3Org:ChapterMenu': {  }
+'Neos.NeosDemoTypo3Org:Chapter': {  }
+'Neos.NodeTypes:Form': {  }
+'Neos.NodeTypes:AssetList': {  }
+'Neos.NeosDemoTypo3Org:Carousel': {  }
+'Neos.NodeTypes:ContentReferences': {  }
+'Neos.NodeTypes:Menu': {  }
 
 'JoRo.KnallImAll:GpxTracks':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: 'GPX Tracks'
     icon: icon-map-marker
@@ -52,7 +52,7 @@
         inspector:
           group: TagGroup
     tour:
-      type: array<TYPO3\Media\Domain\Model\Asset>
+      type: array<Neos\Media\Domain\Model\Asset>
       ui:
         label: Tour
         reloadIfChanged: true
@@ -61,7 +61,7 @@
 
 'JoRo.KnallImAll:BikeTour':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: 'Bike Tour'
     icon: icon-map-marker
@@ -87,7 +87,7 @@
         inspector:
           group: BikeTour
     tour:
-      type: TYPO3\Media\Domain\Model\Asset
+      type: Neos\Media\Domain\Model\Asset
       ui:
         label: Tour
         reloadIfChanged: true
@@ -95,7 +95,7 @@
           group: BikeTour
 'JoRo.KnallImAll:ImageBlock':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: 'Image Block by Tag'
     icon: icon-picture
@@ -125,7 +125,7 @@
           group: TagGroup
 'JoRo.KnallImAll:Dokuwiki':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: Dokuwiki
     icon: 'icon fi-dokuwiki'
@@ -160,7 +160,7 @@
           group: Dokuwiki
 'JoRo.KnallImAll:Openwrt':
   superTypes:
-    'TYPO3.Neos:Plugin': true
+    'Neos.Neos:Plugin': true
   ui:
     label: OpenWrt
     icon: 'icon fi-rss'
@@ -201,17 +201,17 @@
         inspector:
           group: openwrt
 
-'TYPO3.Neos.NodeTypes:TwoColumn':
+'Neos.NodeTypes:TwoColumn':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Column': TRUE
+    'Neos.NodeTypes:Column': TRUE
   ui:
     label: i18n
     position: 200
   childNodes:
     column0:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     column1:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   properties:
     layout:
       defaultValue: '6'
@@ -232,19 +232,19 @@
               '66-33': ~
               '33-66': ~
 
-'TYPO3.Neos.NodeTypes:ThreeColumn':
+'Neos.NodeTypes:ThreeColumn':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Column': TRUE
+    'Neos.NodeTypes:Column': TRUE
   ui:
     label: i18n
     position: 200
   childNodes:
     column0:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     column1:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     column1:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   properties:
     layout:
       defaultValue: '4-4-4'
@@ -264,19 +264,19 @@
               '25-50-25': ~
               '25-25-50': ~
 
-'TYPO3.Neos.NodeTypes:FourColumn':
+'Neos.NodeTypes:FourColumn':
   superTypes:
-    'TYPO3.Neos.NodeTypes:Column': TRUE
+    'Neos.NodeTypes:Column': TRUE
   ui:
     label: i18n
     position: 200
   childNodes:
     column0:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     column1:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
     column1:
-      type: 'TYPO3.Neos:ContentCollection'
+      type: 'Neos.Neos:ContentCollection'
   properties:
     layout:
       defaultValue: '3-3-3-3'
@@ -289,7 +289,7 @@
                 label: '3 / 3 / 3 / 3 Columns'
               '25-25-25-25': ~
 
-'TYPO3.Neos.NodeTypes:Page':
+'Neos.NodeTypes:Page':
   childNodes:
     teaser: {  }
   ui:
@@ -307,7 +307,7 @@
     subpageLayout:
       ui: {  }
     image:
-      type: TYPO3\Media\Domain\Model\ImageInterface
+      type: Neos\Media\Domain\Model\ImageInterface
       ui:
         label: Image
         reloadIfChanged: true
@@ -334,7 +334,7 @@
         inspector:
           group: icon
           position: 200
-          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
             placeholder: Default
             values:
@@ -912,9 +912,9 @@
                 label: fi-zoom-in
               fi-zoom-out:
                 label: fi-zoom-out
-'TYPO3.Neos:Shortcut':
+'Neos.Neos:Shortcut':
   superTypes:
-    'TYPO3.Neos:Document': true
+    'Neos.Neos:Document': true
   ui:
     label: i18n
     icon: icon-share
@@ -932,7 +932,7 @@
         reloadPageIfChanged: true
         inspector:
           group: document
-          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
             values:
               firstChildNode:
@@ -948,7 +948,7 @@
         reloadPageIfChanged: true
         inspector:
           group: document
-          editor: TYPO3.Neos/Inspector/Editors/LinkEditor
+          editor: Neos.Neos/Inspector/Editors/LinkEditor
     iconsFoundation:
       type: string
       ui:
@@ -956,7 +956,7 @@
         reloadPageIfChanged: true
         inspector:
           group: document
-          editor: TYPO3.Neos/Inspector/Editors/SelectBoxEditor
+          editor: Neos.Neos/Inspector/Editors/SelectBoxEditor
           editorOptions:
             placeholder: Default
             values:

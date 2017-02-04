@@ -1,5 +1,5 @@
 #                                                                        #
-# Security policy for the TYPO3.NeosDemoTypo3Org package                 #
+# Security policy for the Neos.NeosDemoTypo3Org package                 #
 #                                                                        #
 
 # resources:
@@ -17,11 +17,11 @@
 #       JoRo_KnallImAll_OwnCloudAccess: GRANT
 #       
 #                                                                        #
-# Security policy for the TYPO3.NeosDemoTypo3Org package                 #
+# Security policy for the Neos.NeosDemoTypo3Org package                 #
 #                                                                        #
 
 privilegeTargets:
-  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
 
     JoRo_KnallImAll_BikeTourAccess:
       matcher: method(JoRo\KnallImAll\Controller\BikeTourController->(show|detail)Action())
@@ -33,12 +33,9 @@ privilegeTargets:
       matcher: method(JoRo\KnallImAll\Controller\GpxTracksController->(show)Action())
     JoRo_KnallImAll_ImageBlockAccess:
       matcher: method(JoRo\KnallImAll\Controller\ImageBlockController->(show)Action())
-    JoRo_KnallImAll_CdCollectionAccess:
-      matcher: method(Sarkosh\CdCollection\Controller\CollectionController->(overview|show)Action())
 
 roles:
-
-  'TYPO3.Flow:Everybody':
+  'Neos.Flow:Everybody':
     privileges:
       -
         privilegeTarget: JoRo_KnallImAll_BikeTourAccess

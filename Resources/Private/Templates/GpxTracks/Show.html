@@ -1,5 +1,5 @@
-{namespace neos=TYPO3\Neos\ViewHelpers}
-{namespace media=TYPO3\Media\ViewHelpers} 
+{namespace neos=Neos\Neos\ViewHelpers}
+{namespace media=Neos\Media\ViewHelpers} 
 
 <h1>{headline}</h1>
 <div>{text}</div>
@@ -130,7 +130,72 @@ GMAP = [
                 navigationControl: true,
                 scrollwheel: true,
                 streetViewControl: true
-            }).marker(markers).polyline(line)
-            .fit();
+            }).marker(markers).polyline(line).fit();
 
+
+
+
+</script>
+
+
+<div style="height: 200px" class="map"></div>
+<script>
+    var uluru = [{ position: [{lat: -25.363, lng: 131.044}] },
+        { position: [{lat: -20.363, lng: 125.044}] },
+        { position: [{lat: -22.363, lng: 130.044}] }];
+
+    $('.map')
+            .gmap3({
+                zoom: 4,
+            })
+            .marker({
+                values: markers,
+                options:{
+                    draggable: false
+                },
+                events:{
+                    closeclick: function(infowindow){
+                        var infowindow = $(this).gmap3({get:{name:"infowindow"}});
+                        if (infowindow){
+                            infowindow.close();
+                        }
+                    },
+                    click: function(marker, event, context){
+                        var map = $(this).gmap3("get"),
+                                infowindow = $(this).gmap3({get:{name:"infowindow"}});
+                        if (infowindow){
+                            infowindow.open(map, marker);
+                            infowindow.setContent(context.data);
+                        } else {
+                            $(this).gmap3({
+                                infowindow:{
+                                    anchor:marker,
+                                    options:{content: context.data}
+                                }
+                            });
+                        }
+                    }
+                }
+
+            })
+            .infowindow([
+                {content: "Hello from Uluru"},
+                {content: "Hello from Uluru"},
+                {content: "Hello from Uluru"}
+            ])
+            .then(function (infowindow) {
+                //console.dir(this.get(0));
+                console.log(this);
+                var map = this.get(0);
+                var marker = this.get(1);
+                console.log(marker[0]['clickable']);
+                console.log(map);
+//                marker.addListener('click', function() {
+//                    infowindow.open(map, marker);
+//                })
+            }).on({
+                click: function (marker, event) {
+                    console.log('click');
+                }
+            }).fit();
 </script>

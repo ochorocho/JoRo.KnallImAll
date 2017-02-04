@@ -6,12 +6,12 @@ namespace JoRo\KnallImAll\NodeTypePostprocessor;
  *                                                                               *
  *                                                                               */
 
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\TYPO3CR\Domain\Model\NodeType;
-use TYPO3\TYPO3CR\NodeTypePostprocessor\NodeTypePostprocessorInterface;
-use TYPO3\Media\Domain\Repository\TagRepository;
-use TYPO3\Flow\Persistence\PersistenceManagerInterface;
-use TYPO3\Media\Domain\Model\Tag;
+use Neos\Flow\Annotations as Flow;
+use Neos\ContentRepository\Domain\Model\NodeType;
+use Neos\ContentRepository\NodeTypePostprocessor\NodeTypePostprocessorInterface;
+use Neos\Media\Domain\Repository\TagRepository;
+use Neos\Flow\Persistence\PersistenceManagerInterface;
+use Neos\Media\Domain\Model\Tag;
 
 /**
  * Class TagsPostprocessor
@@ -63,7 +63,7 @@ class TagPostprocessor implements NodeTypePostprocessorInterface {
 				'inspector' => [
 					'group' => 'TagGroup',
 					'position' => 500,
-					'editor' => 'TYPO3.Neos/Inspector/Editors/SelectBoxEditor',
+					'editor' => 'Neos.Neos/Inspector/Editors/SelectBoxEditor',
 					'editorOptions' => [
 						'values' => $options,
 					],
