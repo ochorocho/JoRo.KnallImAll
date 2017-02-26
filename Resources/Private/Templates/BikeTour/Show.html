@@ -3,6 +3,10 @@
 
 {neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
 
+
+<div id="yourMap" node="{node.cssId}" class="gmapTracks"></div>
+
+#######
 <div id="track{node.cssId}" node="{node.cssId}" class="gmapTracks"></div>
 
 <div class="totals row">
@@ -54,19 +58,71 @@ DYGRAPH{node.cssId} = [
 </f:for>
 ]
 
+
+
+
+
 $(document).ready(function() {
-	
+
+
+
+
+	var startPosition = new google.maps.LatLng(-32.042, -48.028333);
+	var nochPosition = new google.maps.LatLng(-12.042, -78.028333);
+
+	var markerArray = [];
+	var yourMap = $('#yourMap').gmap3({
+				zoom: 10,
+				mapTypeId: google.maps.MapTypeId.HYBRID,
+				mapTypeControl: true,
+				mapTypeControlOptions: {
+					style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
+				},
+				navigationControl: true,
+				scrollwheel: true,
+				streetViewControl: true,
+			}).marker([
+				{
+					position: nochPosition,
+					icon: 'http://maps.google.com/mapfiles/marker_green.png'
+				},
+				{
+					position: startPosition,
+					icon: 'http://maps.google.com/mapfiles/marker_green.png'
+				}
+
+			]).then(function(generatedMarkers){
+				markerArray = generatedMarkers;
+			}).fit();
+
+
+
+
+
+	for( var i=0; i<markerArray.length; i++ ){
+			markerArray[i].setMap(null);
+	}
+
+
+
+
 	var mapId = $("#track{node.cssId}");
 	var path = eval('GMAP{node.cssId}');
 	var line = eval('GMAP{node.cssId}');
 	var startPosition = new google.maps.LatLng(line[0][0],line[0][1]);
+	var nochPosition = new google.maps.LatLng(-12.042, -78.028333);
 
-	marker = new google.maps.Marker({
-		position: startPosition,
-		title: "My Marker"
-	});
+//	marker = {
+//		position: startPosition,
+//		title: "My Marker",
+//		tag: "myMarker"
+//	};
+	var markerArray = [
+		position = startPosition,
+		title = 'Hello World!'
+	];
 
-
+	var markerArray = [];
 	$(mapId).gmap3({
 		address:"Paris, France",
 		zoom: 10,
@@ -77,18 +133,52 @@ $(document).ready(function() {
 		},
 		navigationControl: true,
 		scrollwheel: true,
-		streetViewControl: true
+		streetViewControl: true,
 	}).polyline({
 		strokeColor: "#FF0000",
 		strokeOpacity: 1.0,
 		strokeWeight: 2,
 		path: line
-	}).marker(marker).fit();
+	}).marker([
+		{
+			position: nochPosition,
+			icon: 'http://maps.google.com/mapfiles/marker_green.png'
+		},
+		{
+			position: startPosition,
+			icon: 'http://maps.google.com/mapfiles/marker_green.png'
+		}
+
+	]).then(function(markers){
+		console.log(markers);
+		markerArray.push(markers);
+		console.log(markers);
+		console.log('asdsadasd');
+	}).fit();
+
+//
+//	for( var i=0; i<markerArray.length; i++ ){
+//		markerArray.setMap(null);
+//	}
+
 
 //	function markerPos() {
 //		var newPosition = new google.maps.LatLng(-12.042, -78.028333);
 //		marker.setPosition(newPosition);
 //	}
+
+//	$(mapId).gmap3().marker([
+//		{position:[48.8620722, 2.352047]},
+//	]);
+
+
+//	var map = $("#track{currentNode}").gmap3();
+//	var latLngDEF = new google.maps.LatLng(line[150][0], line[150][1]);
+//	var marker = new google.maps.Marker({
+//		position: startPosition,
+//		map: $(mapId),
+//		title: 'BikeMap'
+//	});
 
 
 	new Dygraph(document.getElementById("graph{node.cssId}"),
@@ -97,9 +187,18 @@ $(document).ready(function() {
 	            labels: ["Date", "Elevation", "Speed km/h" ],
 	            showRangeSelector: true,
 				highlightCallback: function(e, x, pts, row) {
-					var newPosition = new google.maps.LatLng(-12.042, -78.028333);
-					marker.setPosition(newPosition);
-					console.log(row);
+
+//					var newPosition = new google.maps.LatLng(-12.042, -78.028333);
+//					marker.setPosition(newPosition);
+
+					var marker = {
+						position: [line[row][0],line[row][1]],
+						title: "My Marker"
+					};
+
+					$(mapId).gmap3().marker(['']).marker(marker);
+
+					//console.dir($(mapId).gmap3().marker());
 				},
 	            series : {
 	              'Date': { axis: 'y1' },
