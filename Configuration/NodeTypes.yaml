@@ -596,10 +596,14 @@
                 label: fi-music
               fi-next:
                 label: fi-next
+              fi-nextcloud:
+                label: fi-nextcloud
               fi-no-dogs:
                 label: fi-no-dogs
               fi-no-smoking:
                 label: fi-no-smoking
+              fi-openwrt:
+                label: fi-openwrt
               fi-page-add:
                 label: fi-page-add
               fi-page-copy:

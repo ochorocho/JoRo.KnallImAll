@@ -88,25 +88,32 @@
 </f:section>
 
 <f:section name="bodyScripts">
-		<script src="{f:uri.resource(path: 'JavaScript/app.js', package: 'JoRo.KnallImAll')}"></script>
-		<script src="{f:uri.resource(path: 'JavaScript/fotorama.js', package: 'JoRo.KnallImAll')}"></script>
-        <!--script src="http://neos.knallimall.org:35729/livereload.js"></script-->
-        <!-- Piwik -->
-        <script type="text/javascript">
-          var _paq = _paq || [];
-          _paq.push(['trackPageView']);
-          _paq.push(['enableLinkTracking']);
-          (function() {
-            var u="//piwik.knallimall.org/";
-            _paq.push(['setTrackerUrl', u+'piwik.php']);
-            _paq.push(['setSiteId', 12]);
-            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-            g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
-          })();
-        </script>
-        <noscript><p><img src="//piwik.knallimall.org/piwik.php?idsite=12" style="border:0;" alt="" /></p></noscript>
-        <!-- End Piwik Code -->
+	<f:security.ifAccess privilegeTarget="Neos.Neos:Backend.GeneralAccess">
+		<f:then>
+			<!-- PIWIK CODE HERE IF NOT IN BACKEND -->
+		</f:then>
+		<f:else>
+			<script src="{f:uri.resource(path: 'JavaScript/app.js', package: 'JoRo.KnallImAll')}"></script>
+			<script src="{f:uri.resource(path: 'JavaScript/fotorama.js', package: 'JoRo.KnallImAll')}"></script>
+			<!--script src="http://neos.knallimall.org:35729/livereload.js"></script-->
+			<!-- Piwik -->
+			<script type="text/javascript">
+				var _paq = _paq || [];
+				_paq.push(['trackPageView']);
+				_paq.push(['enableLinkTracking']);
+				(function() {
+					var u="//piwik.knallimall.org/";
+					_paq.push(['setTrackerUrl', u+'piwik.php']);
+					_paq.push(['setSiteId', 12]);
+					var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+					g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+				})();
+			</script>
+			<noscript><p><img src="//piwik.knallimall.org/piwik.php?idsite=12" style="border:0;" alt="" /></p></noscript>
+			<!-- End Piwik Code -->
 
+		</f:else>
+	</f:security.ifAccess>
 </f:section>
 </body>
 </html>
