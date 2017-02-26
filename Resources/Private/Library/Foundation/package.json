@@ -9,9 +9,9 @@
   },
   "dependencies": {
     "grunt": "^1.0.1",
-    "grunt-autoprefixer": "^3.0.3",
+    "grunt-autoprefixer": "^3.0.4",
     "grunt-contrib-jshint": "~1.1.0",
-    "grunt-contrib-uglify": "~2.0.0",
+    "grunt-contrib-uglify": "~2.1.0",
     "grunt-contrib-watch": "~1.0.0",
     "grunt-sass": "^2.0.0",
     "grunt-webfont": "^1.6.0",
