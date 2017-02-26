@@ -1,6 +1,7 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 {namespace media=Neos\Media\ViewHelpers}
-<h1>{headline}</h1>
+
+{neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
 
 <div id="track{currentNode}" node="{currentNode}" class="gmapTracks"></div>
 
@@ -70,27 +71,28 @@ $(document).ready(function() {
 				path: path,
 			}
 		},
-		autofit:{} 
+		autofit:{}
 	});
 
 	var huhu = $("#track{currentNode}").attr('id');
 
 	var map = $("#track{currentNode}").gmap3('get');
-    var latLngDEF = new google.maps.LatLng(path[0][0], path[0][1]);
+    // var latLngDEF = new google.maps.LatLng(path[0][0], path[0][1]);
+	var latLngDEF = new google.maps.LatLng(-29.011205555556, 134.75405833333);
 
 	var marker = new google.maps.Marker({
 		position: latLngDEF,
 		map: map,
 		title: 'BikeMap'
 	});
-	
+
 	new Dygraph(document.getElementById("graph{currentNode}"),
 	          eval('DYGRAPH{currentNode}'),
 	          {
 	            labels: ["Date", "Elevation", "Speed km/h" ],
 	            showRangeSelector: true,
 				highlightCallback: function(e, x, pts, row) {
-		            var latLng = new google.maps.LatLng(path[row][0], path[row][1]);
+		            var latLng = new google.maps.LatLng(-29.011205555556, 134.75405833333);
 					map.setCenter(latLng);
 				    marker.setPosition(latLng);
 				},

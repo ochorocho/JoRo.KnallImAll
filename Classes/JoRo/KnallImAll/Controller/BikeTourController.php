@@ -44,18 +44,6 @@ class BikeTourController extends ActionController {
 	/**
 	 * @return void
 	 */
-	public function detailAction() {
-		$tags = $this->request->getInternalArgument('__headline');
-		if ($tags === NULL || $tags === '') {
-			return '<p>Please specify Flickr tag(s)</p>';
-		}
-
-		$this->view->assign('tags', $tags);
-	}
-
-	/**
-	 * @return void
-	 */
 	public function distance($lat1, $lon1, $lat2, $lon2, $unit) {
 	
 		$theta = $lon1 - $lon2;
@@ -78,18 +66,18 @@ class BikeTourController extends ActionController {
 	 * @return void
 	 */
 	public function showAction() {
-		$headline = $this->request->getInternalArgument('__headline');
-		$text = $this->request->getInternalArgument('__text');
-		$asset = $this->request->getInternalArgument('__tour');
+
+		$properties = $this->request->getInternalArgument('__node')->getNodeData()->getProperties();
+		$node = $this->request->getInternalArgument('__node');
+
+		$headline = $properties['headline'];
+		$asset = $properties['tour'];
 
 		$currentNode = strtoupper(str_replace('-', '', $this->request->getInternalArgument('__node')->getIdentifier()));
 		$c=0;
 					
 		if($asset) {
-           
-            
-//             \TYPO3\FLOW\var_dump($asset->getResource()->getMediaType());
-            
+
 			$absoluteFilePath = $asset->getResource()->createTemporaryLocalCopy();
 			$data=fopen($absoluteFilePath,'r');
 	
@@ -131,7 +119,7 @@ class BikeTourController extends ActionController {
     				}
     				
     				$c++;
-    			}                
+    			}
             }
                 
             if($asset->getResource()->getMediaType() == 'application/gpx+xml') {
@@ -185,6 +173,7 @@ class BikeTourController extends ActionController {
 			$this->view->assign('coord', $coord);
 			$this->view->assign('elevation', $elevation);
 			$this->view->assign('asset', $asset);
+			$this->view->assign('node', $node);
 		}
 	}
 

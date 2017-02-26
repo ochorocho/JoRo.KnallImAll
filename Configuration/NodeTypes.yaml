@@ -62,6 +62,8 @@
 'JoRo.KnallImAll:BikeTour':
   superTypes:
     'Neos.Neos:Plugin': true
+    'Neos.Neos:Content': TRUE
+    'Neos.NodeTypes:TextMixin': TRUE
   ui:
     label: 'Bike Tour'
     icon: icon-map-marker
@@ -83,9 +85,9 @@
       defaultValue: 'Strecke 1'
       ui:
         label: Headline
-        inlineEditable: true
-        inspector:
-          group: BikeTour
+        inlineEditable: TRUE
+        aloha:
+          placeholder: 'Some text here...'
     tour:
       type: Neos\Media\Domain\Model\Asset
       ui:

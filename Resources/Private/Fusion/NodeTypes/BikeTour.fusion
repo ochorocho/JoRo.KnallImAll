@@ -2,7 +2,7 @@
 # "Map" element, extending "Plugin"
 #
 
-prototype(Site:BikeTour) < prototype(Neos.Neos:Plugin) {
+prototype(JoRo.KnallImAll:BikeTour) < prototype(Neos.Neos:Plugin) {
 	package = 'JoRo.KnallImAll'
 	controller = 'BikeTour'
 	action = 'show'
