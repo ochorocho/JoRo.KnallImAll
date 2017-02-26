@@ -39,6 +39,7 @@ class BikeTourController extends ActionController {
 //	 * @Flow\Inject(setting="biketour.userStreamUriPattern")
 //	 * @var string
 //	 */
+
 	protected $userStreamUriPattern;
 
 	/**
@@ -162,7 +163,6 @@ class BikeTourController extends ActionController {
 				
 			}
 	
-			$this->view->assign('currentNode',  $currentNode);
 			$this->view->assign('headline', $headline);
 			$this->view->assign('average_speed', round($speedTotal/(count($coord)), 2));
 			$this->view->assign('distance', round($distance, 2));
@@ -173,6 +173,7 @@ class BikeTourController extends ActionController {
 			$this->view->assign('coord', $coord);
 			$this->view->assign('elevation', $elevation);
 			$this->view->assign('asset', $asset);
+			$node->cssId = str_replace('-', '', $node->getIdentifier());
 			$this->view->assign('node', $node);
 		}
 	}

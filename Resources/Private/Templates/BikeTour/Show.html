@@ -3,7 +3,7 @@
 
 {neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
 
-<div id="track{currentNode}" node="{currentNode}" class="gmapTracks"></div>
+<div id="track{node.cssId}" node="{node.cssId}" class="gmapTracks"></div>
 
 <div class="totals row">
 	<div class="small-4 medium-4 large-4 columns">
@@ -24,11 +24,11 @@
 </div>
 
 <div class="dygraphWrap">
-	<div id="graph{currentNode}" class="dygraph" node="{currentNode}" style="width: 100%; height: 200px"></div>
+	<div id="graph{node.cssId}" class="dygraph" node="{node.cssId}" style="width: 100%; height: 200px"></div>
 </div>
 
 <script type="text/javascript">
-GMAP{currentNode}= [
+GMAP{node.cssId} = [
 <f:for each="{coord}" as="poi" iteration="iterator">
 	<f:if condition="{iterator.isLast}">
 		<f:then>
@@ -41,7 +41,7 @@ GMAP{currentNode}= [
 </f:for>
 ]
 
-DYGRAPH{currentNode}= [
+DYGRAPH{node.cssId} = [
 <f:for each="{elevation}" as="value" iteration="iterator">
 	<f:if condition="{iterator.isLast}">
 		<f:then>
@@ -56,45 +56,50 @@ DYGRAPH{currentNode}= [
 
 $(document).ready(function() {
 	
-	var mapId = $("#track{currentNode}");
-	var path = eval('GMAP{currentNode}');
+	var mapId = $("#track{node.cssId}");
+	var path = eval('GMAP{node.cssId}');
+	var line = eval('GMAP{node.cssId}');
+	var startPosition = new google.maps.LatLng(line[0][0],line[0][1]);
+
+	marker = new google.maps.Marker({
+		position: startPosition,
+		title: "My Marker"
+	});
+
+
 	$(mapId).gmap3({
-		map:{
-			center: true,
-			zoom: 10,
+		address:"Paris, France",
+		zoom: 10,
+		mapTypeId: google.maps.MapTypeId.HYBRID,
+		mapTypeControl: true,
+		mapTypeControlOptions: {
+			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU
 		},
-		polyline:{
-			options:{
-				strokeColor: "#FF0000",
-				strokeOpacity: 1.0,
-				strokeWeight: 1,
-				path: path,
-			}
-		},
-		autofit:{}
-	});
+		navigationControl: true,
+		scrollwheel: true,
+		streetViewControl: true
+	}).polyline({
+		strokeColor: "#FF0000",
+		strokeOpacity: 1.0,
+		strokeWeight: 2,
+		path: line
+	}).marker(marker).fit();
 
-	var huhu = $("#track{currentNode}").attr('id');
+//	function markerPos() {
+//		var newPosition = new google.maps.LatLng(-12.042, -78.028333);
+//		marker.setPosition(newPosition);
+//	}
 
-	var map = $("#track{currentNode}").gmap3('get');
-    // var latLngDEF = new google.maps.LatLng(path[0][0], path[0][1]);
-	var latLngDEF = new google.maps.LatLng(-29.011205555556, 134.75405833333);
 
-	var marker = new google.maps.Marker({
-		position: latLngDEF,
-		map: map,
-		title: 'BikeMap'
-	});
-
-	new Dygraph(document.getElementById("graph{currentNode}"),
-	          eval('DYGRAPH{currentNode}'),
+	new Dygraph(document.getElementById("graph{node.cssId}"),
+	          eval('DYGRAPH{node.cssId}'),
 	          {
 	            labels: ["Date", "Elevation", "Speed km/h" ],
 	            showRangeSelector: true,
 				highlightCallback: function(e, x, pts, row) {
-		            var latLng = new google.maps.LatLng(-29.011205555556, 134.75405833333);
-					map.setCenter(latLng);
-				    marker.setPosition(latLng);
+					var newPosition = new google.maps.LatLng(-12.042, -78.028333);
+					marker.setPosition(newPosition);
+					console.log(row);
 				},
 	            series : {
 	              'Date': { axis: 'y1' },
