@@ -1,8 +1,0 @@
-##
-# "Map" element, extending "Plugin"
-#
-prototype(Site:Dokuwiki) < prototype(TYPO3.Neos:Plugin) {
-	package = 'JoRo.KnallImAll'
-	controller = 'Dokuwiki'
-	action = 'show'
-}

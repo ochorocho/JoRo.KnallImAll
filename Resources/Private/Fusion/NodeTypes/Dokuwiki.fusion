@@ -1,0 +1,8 @@
+##
+# "Map" element, extending "Plugin"
+#
+prototype(Site:Dokuwiki) < prototype(Neos.Neos:Plugin) {
+	package = 'JoRo.KnallImAll'
+	controller = 'Dokuwiki'
+	action = 'show'
+}

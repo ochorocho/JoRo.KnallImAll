@@ -1,0 +1,8 @@
+##
+# "Map" element, extending "Plugin"
+#
+prototype(Site:Openwrt) < prototype(Neos.Neos:Plugin) {
+	package = 'JoRo.KnallImAll'
+	controller = 'Openwrt'
+	action = 'show'
+}

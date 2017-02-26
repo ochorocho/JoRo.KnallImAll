@@ -1,9 +1,0 @@
-##
-# "Map" element, extending "Plugin"
-#
-
-prototype(Site:BikeTour) < prototype(TYPO3.Neos:Plugin) {
-	package = 'JoRo.KnallImAll'
-	controller = 'BikeTour'
-	action = 'show'
-}

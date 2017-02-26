@@ -3,8 +3,8 @@
     "type": "typo3-flow-site",
     "description": "A Foundation 5 based Package for NEOS",
     "require": {
-        "typo3/neos": "*",
-        "typo3/neos-nodetypes": "*"
+        "neos/neos": "*",
+        "neos/neos-nodetypes": "*"
     },
     "suggest": {
         "typo3/neos-seo": "*"

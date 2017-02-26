@@ -1,0 +1,9 @@
+##
+# "Map" element, extending "Plugin"
+#
+
+prototype(Site:ImageBlock) < prototype(Neos.Neos:Plugin) {
+	package = 'JoRo.KnallImAll'
+	controller = 'ImageBlock'
+	action = 'show'
+}

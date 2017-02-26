@@ -688,6 +688,8 @@
                 label: fi-rewind
               fi-rss:
                 label: fi-rss
+              fi-snowboard:
+                label: fi-snowboard
               fi-safety-cone:
                 label: fi-safety-cone
               fi-save:

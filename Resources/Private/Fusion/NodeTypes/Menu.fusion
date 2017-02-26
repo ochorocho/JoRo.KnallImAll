@@ -1,0 +1,33 @@
+# Neos.Neos:Menu provides basic menu rendering
+#
+#prototype(Neos.Neos:Menu) < prototype(Neos.Fusion:Template) {
+#	@class = 'Neos\\Neos\\TypoScript\\MenuImplementation'
+#	templatePath = 'resource://JoRo.KnallImAll/Private/Templates/TypoScriptObjects/Menu.html'
+#    entryLevel = 2
+#	items = ${this.items}
+#	filter = 'Neos.Neos:Document'
+#	attributes.huhu = 'sdsadas'
+#
+#	active.attributes = Neos.Fusion:Attributes {
+#		class = 'active'
+#	}
+#	current.attributes = Neos.Fusion:Attributes {
+#		class = 'current'
+#	}
+#	normal.attributes = Neos.Fusion:Attributes {
+#		class = 'normal'
+#	}
+#
+#	// @exceptionHandler = 'Neos\\Neos\\TypoScript\\ExceptionHandlers\\NodeWrappingHandler'
+#
+#	@cache {
+#		mode = 'cached'
+#		entryIdentifier {
+#			documentNode = ${documentNode}
+#			domain = ${site.context.currentDomain}
+#		}
+#		entryTags {
+#			1 = 'NodeType_Neos.Neos:Document'
+#		}
+#	}
+#}
