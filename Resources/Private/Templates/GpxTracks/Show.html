@@ -7,10 +7,10 @@
 
 <div class="slick{currentNode}">
     <f:for each="{images}" as="slide" iteration="slickIterator">
-        
+
         <div>
-            <a class="openPoi" data-fotorama="{media:uri.image(image:"{slide.filepath}", maximumWidth: 1200, maximumHeight: 1200)},{media:uri.image(image:"{slide.filepath}", maximumWidth: 120, maximumHeight: 80)},{slide.lat},{slide.lon},{slickIterator.index}" href="marker{slide.id}">
-            <typo3.media:image image="{slide.filepath}" maximumWidth="100" maximumHeight="100" allowCropping="true" alt="dasadsa" />
+            <a class="openPoi" data-fotorama=",{media:uri.image(image: slide.filepath, maximumWidth: 120, maximumHeight: 80)},{slide.lat},{slide.lon},{slickIterator.index}" href="marker{slide.id}">
+                <media:image image="{slide.filepath}" maximumWidth="100" maximumHeight="100" allowCropping="true" alt="dasadsa" />
             </a>
         </div>
     </f:for>
@@ -23,49 +23,39 @@
         key: 'AIzaSyC5cyabfXmf_26_dPFEcF4pvB0cBZ0W-y4'
     });
 
-$('.slick{currentNode}').slick({
-    infinite: false,
-    slidesToShow: 10,
-    slidesToScroll: 10,
-    responsive: [
-        {
-          breakpoint: 1023,
-          settings: {
-            slidesToShow: 7,
-            slidesToScroll: 7,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 640,
-          settings: {
-        slidesToShow: 4,
-                slidesToScroll: 4
-    }
-    }
-    ],
-    lazyLoad: 'progressive',
-            prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
-            nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
+    $('.slick{currentNode}').slick({
+        infinite: false,
+        slidesToShow: 10,
+        slidesToScroll: 10,
+        responsive: [
+            {
+                breakpoint: 1023,
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 7,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                }
+            }
+        ],
+        lazyLoad: 'progressive',
+        prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
+        nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
     });
 
-/*
-    MARKER = [
-        <f:for each="{images}" as="image" iteration="markerIterator">
-            {latLng:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image:"{image.filepath}", width: 500)}, (default)], [{media:uri.image(image:"{image.filepath}", width: 800)}, (large)]">{media:image(asset: image.filepath, alt: "{image.label}", width: 275, height: 275)}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
-        </f:for>
-    ]
-*/
 
     MARKER = [
             <f:for each="{images}" as="image" iteration="markerIterator">
-            {position:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image:"{image.filepath}", width: 500)}, (default)], [{media:uri.image(image:"{image.filepath}", width: 800)}, (large)]">{media:image(asset: image.filepath, alt: "{image.label}", width: 275, height: 275)}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
-    </f:for>
+                {latLng:[{image.lat}, {image.lon}], id: 'marker{image.id}',  data:'<a class="lightbox" data-index="{markerIterator.index}" href="[{media:uri.image(image: image.filepath, width: 500)}, (default)], [{media:uri.image(image: image.filepath, width: 800)}, (large)]">{media:image(image: image.filepath, maximumWidth: 120, maximumHeight: 80, alt: 'huhu')}<div class="text-left"><b>{image.label}</b></div><div class="text-left">{image.caption}</div><div class="text-left">{image.exifdate}</div></a>', options:<![CDATA[{]]> icon: '{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}' <![CDATA[}]]>},
+            </f:for>
     ]
-
-
-
 
 GMAP = [
 
@@ -137,8 +127,6 @@ GMAP = [
 
 </script>
 
-
-<div style="height: 200px" class="map"></div>
 <script>
     var uluru = [{ position: [{lat: -25.363, lng: 131.044}] },
         { position: [{lat: -20.363, lng: 125.044}] },
@@ -149,7 +137,7 @@ GMAP = [
                 zoom: 4,
             })
             .marker({
-                values: markers,
+                values: uluru,
                 options:{
                     draggable: false
                 },

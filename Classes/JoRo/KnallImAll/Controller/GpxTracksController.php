@@ -2,14 +2,14 @@
 namespace JoRo\KnallImAll\Controller;
 
 /*                                                                        *
- * This script belongs to the TYPO3 Flow package "Neos.NeosDemoTypo3Org".*
+ * This script belongs to the Neos Flow package "Neos.NeosDemoTypo3Org".*
  *                                                                        *
  * It is free software; you can redistribute it and/or modify it under    *
  * the terms of the GNU General Public License as published by the Free   *
  * Software Foundation, either version 3 of the License, or (at your      *
  * option) any later version.                                             *
  *                                                                        *
- * The TYPO3 project - inspiring people to share!                         *
+ * The Neos project - inspiring people to share!                         *
  *                                                                        */
 
 use Neos\Flow\Annotations as Flow;
@@ -116,9 +116,9 @@ class GpxTracksController extends ActionController {
 
 
         /** @var @var $tagRepository \Neos\Media\Domain\Repository\TagRepository */
-		$tagRepository = $this->objectManager->get('\\TYPO3\\Media\\Domain\\Repository\\TagRepository');
+		$tagRepository = $this->objectManager->get('\\Neos\\Media\\Domain\\Repository\\TagRepository');
 		/** @var $persistenceManager \Neos\Flow\Persistence\PersistenceManagerInterface */
-		$persistenceManager = $this->objectManager->get('TYPO3\\Flow\\Persistence\\PersistenceManagerInterface');
+		$persistenceManager = $this->objectManager->get('Neos\\Flow\\Persistence\\PersistenceManagerInterface');
 
 //         date_default_timezone_set('Australia/Sydney');
 
@@ -133,9 +133,9 @@ class GpxTracksController extends ActionController {
 			$tags[$persistenceManager->getIdentifierByObject($tag)] = $item;
 
             /** @var @var $tagRepository \Neos\Media\Domain\Repository\TagRepository */
-    		$assetRepository = $this->objectManager->get('\\TYPO3\\Media\\Domain\\Repository\\AssetRepository');
+    		$assetRepository = $this->objectManager->get('\\Neos\\Media\\Domain\\Repository\\AssetRepository');
     		/** @var $persistenceManager \Neos\Flow\Persistence\PersistenceManagerInterface */
-    		$persistenceManager = $this->objectManager->get('TYPO3\\Flow\\Persistence\\PersistenceManagerInterface');
+    		$persistenceManager = $this->objectManager->get('Neos\\Flow\\Persistence\\PersistenceManagerInterface');
             
             $images = array();
             $i = 0;
