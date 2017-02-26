@@ -1,0 +1,5 @@
+Neos:
+  Neos:
+    userInterface:
+      backendLoginForm:
+        backgroundImage: 'resource://JoRo.KnallImAll/Public/Images/Login.png'
