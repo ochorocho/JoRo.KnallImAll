@@ -31,7 +31,7 @@ module.exports = function(grunt) {
 		'bower_components/foundation/js/foundation/foundation.tab.js',
 		'bower_components/foundation/js/foundation/foundation.tooltip.js',
 		'bower_components/foundation/js/foundation/foundation.topbar.js',
-		'bower_components/gmap3/dist/gmap3.js',
+		'node_modules/maplace-js/dist/maplace.js',
 		'bower_components/slick-carousel/slick/slick.js',
 		'bower_components/dygraphs/dygraph-combined.js',
 		'bower_components/motion-ui/motion-ui.js',
