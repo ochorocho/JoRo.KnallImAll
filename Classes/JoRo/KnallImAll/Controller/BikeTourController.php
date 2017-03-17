@@ -103,14 +103,18 @@ class BikeTourController extends ActionController {
             if($asset->getResource()->getMediaType() == 'application/gpx+xml') {
 
 				$gpx = new GPXIngest();
+				$gpx->unsuppress('speed');
+				$gpx->enableExperimental('calcDistance');
 				$gpx->loadFile($absoluteFilePath);
 				$gpx->ingest();
-				$gpxObject = json_decode($gpx->getJSON());
+				$gpxObject = $gpx->getJSON();
+
+				\Neos\Flow\var_dump(json_decode($gpxObject, true));
 
 			}
 
 			$this->view->assign('headline', $headline);
-			$this->view->assign('gpx', $gpxObject);
+			$this->view->assign('gpx', json_decode($gpxObject, true));
 			$this->view->assign('asset', $asset);
 			$node->cssId = str_replace('-', '', $node->getIdentifier());
 			$this->view->assign('node', $node);

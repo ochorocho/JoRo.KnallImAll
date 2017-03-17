@@ -4,11 +4,6 @@
 {neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
 
 
-
-<f:debug>{gpx.stats}</f:debug>
-
-
-
 <div id="track{node.cssId}" node="{node.cssId}" class="gmapTracks"></div>
 <div class="dygraphWrap">
 	<div id="graph{node.cssId}" class="dygraph" node="{node.cssId}" style="width: 100%; height: 200px"></div>
@@ -32,41 +27,105 @@
 	</div>
 </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script type="text/javascript">
 
-	GMAP{node.cssId} = [
-		<![CDATA[{]]>"lat": {coord.0.0},"lon": {coord.0.1},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
-	<f:for each="{coord}" as="poi" iteration="iterator">
-		<f:if condition="{iterator.isLast}">
-			<f:then>
-				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>
-			</f:then>
-			<f:else>
-				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>,
-			</f:else>
-		</f:if>
-	</f:for>
+//	GMAP{node.cssId} = [
+//		<![CDATA[{]]>"lat": {coord.0.0},"lon": {coord.0.1},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
+//	<f:for each="{coord}" as="poi" iteration="iterator">
+//		<f:if condition="{iterator.isLast}">
+//			<f:then>
+//				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>
+//			</f:then>
+//			<f:else>
+//				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>,
+//			</f:else>
+//		</f:if>
+//	</f:for>
+//];
+
+//
+
+
+
+GMAP{node.cssId} = [
+    <f:if condition="{gpx.journeys.journey0.segments.seg0.points.trackpt0.lat}">
+        <![CDATA[{]]>"lat": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lat},"lon": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lon},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
+    </f:if>
+    <f:for each="{gpx.journeys}" as="journey" iteration="iJourney">
+        <f:if condition="{iJourney.isLast}">
+            <f:then>
+                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                    <f:if condition="{iterationSegment.isLast}">
+                    <f:then>
+                        <f:for each="{segment.points}" as="point" iteration="iPoint">
+                            <f:if condition="{iPoint.isLast}">
+                                <f:then>
+                                    <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>
+                                </f:then>
+                                <f:else>
+                                    <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <f:for each="{segment.points}" as="point" iteration="iPoint">
+                                <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                        </f:for>
+                    </f:else>
+                </f:if>
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                    <f:for each="{segment.points}" as="point" iteration="iPoint">
+                        <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                    </f:for>
+                </f:for>
+            </f:else>
+        </f:if>
+    </f:for>
 ];
 
 
-	DYGRAPH{node.cssId} = [
-<f:for each="{elevation}" as="value" iteration="iterator">
-	<f:if condition="{iterator.isLast}">
-		<f:then>
-			[new Date("{value.0}"), {value.1}, {value.2}]
-		</f:then>
-		<f:else>
-			[new Date("{value.0}"), {value.1}, {value.2}],
-		</f:else>
-	</f:if>
-</f:for>
-];
+DYGRAPH{currentNode}= [
+        <f:for each="{elevation}" as="value" iteration="iterator">
+            <f:if condition="{iterator.isLast}">
+                <f:then>
+                    [new Date("{value.0}"), {value.1}, {value.2}]
+                </f:then>
+                <f:else>
+                    [new Date("{value.0}"), {value.1}, {value.2}],
+                </f:else>
+            </f:if>
+        </f:for>
+]
+
+
 
 $(document).ready(function() {
 
+
 	var mapId = "#track{node.cssId}";
 	var dygraph = "graph{node.cssId}";
-	var graph = eval('DYGRAPH{node.cssId}');
+	//var graph = eval('DYGRAPH{node.cssId}');
 	var path = eval('GMAP{node.cssId}');
 
 	var map = new Maplace({
@@ -82,28 +141,6 @@ $(document).ready(function() {
 		}
 	}).Load();
 
-	new Dygraph(document.getElementById(dygraph),
-		  graph,
-		  {
-			labels: ["Date", "Elevation", "Speed km/h" ],
-			showRangeSelector: true,
-			highlightCallback: function(e, x, pts, row) {
-				var newPos = new google.maps.LatLng(path[row].lat, path[row].lon);
-				map.markers[0].setPosition(newPos);
-			},
-			series : {
-			  'Date': { axis: 'y1' },
-			  'Elevation': { axis: 'y2' }
-			},
-			axes: {
-			  y2: {
-				labelsKMB: true
-			  }
-			},
-			ylabel: 'Speed',
-			y2label: 'Elevation'
-		  }
-	);
 
 });
 
