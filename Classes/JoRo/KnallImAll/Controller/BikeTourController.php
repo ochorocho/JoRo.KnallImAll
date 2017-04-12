@@ -109,12 +109,29 @@ class BikeTourController extends ActionController {
 				$gpx->ingest();
 				$gpxObject = $gpx->getJSON();
 
-				\Neos\Flow\var_dump(json_decode($gpxObject, true));
+				$hooray = json_decode($gpxObject, true);
+				// \Neos\Flow\var_dump($hooray);
+
+				foreach ($hooray['journeys'] as $keyJ=>$journey) {
+					foreach ($journey['segments'] as $keyS=>$segment) {
+						foreach ($segment['points'] as $keyP=>$point) {
+							$point['speed'] = preg_replace("/(.*) MPH/", "$1", $point['speed']);
+							$hooray['journeys'][$keyJ]['segments'][$keyS]['points'][$keyP]['speed'] = $point['speed'] * 1.609344;
+							$hooray['journeys'][$keyJ]['segments'][$keyS]['points'][$keyP]['time'] = $point['time'] * 1000;
+
+							// \Neos\Flow\var_dump($keyJ);
+							// preg_replace("/(.*) MPH/", "$1", $point);
+						}
+					}
+
+				}
+
+
 
 			}
 
 			$this->view->assign('headline', $headline);
-			$this->view->assign('gpx', json_decode($gpxObject, true));
+			$this->view->assign('gpx', $hooray);
 			$this->view->assign('asset', $asset);
 			$node->cssId = str_replace('-', '', $node->getIdentifier());
 			$this->view->assign('node', $node);
