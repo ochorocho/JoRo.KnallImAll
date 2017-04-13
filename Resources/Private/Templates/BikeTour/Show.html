@@ -30,24 +30,6 @@
 
 <script type="text/javascript">
 
-//	GMAP{node.cssId} = [
-//		<![CDATA[{]]>"lat": {coord.0.0},"lon": {coord.0.1},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
-//	<f:for each="{coord}" as="poi" iteration="iterator">
-//		<f:if condition="{iterator.isLast}">
-//			<f:then>
-//				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>
-//			</f:then>
-//			<f:else>
-//				<![CDATA[{]]>"lat": {poi.0},"lon": {poi.1}, visible: false<![CDATA[}]]>,
-//			</f:else>
-//		</f:if>
-//	</f:for>
-//];
-
-//
-
-
-
 GMAP{node.cssId} = [
     <f:if condition="{gpx.journeys.journey0.segments.seg0.points.trackpt0.lat}">
         <![CDATA[{]]>"lat": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lat},"lon": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lon},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
@@ -150,20 +132,16 @@ $(document).ready(function() {
 		}
 	}).Load();
 
-    new Dygraph(document.getElementById("graph8aa0e432b88140bea9ddbbe0e34c71c7"),
-            eval('DYGRAPH8aa0e432b88140bea9ddbbe0e34c71c7'),
+    new Dygraph(document.getElementById(dygraph),
+            graph,
             {
                 labels: ["Date", "Speed km/h", "Elevation"],
                 showRangeSelector: true,
                 highlightCallback: function(e, x, pts, row) {
-//					var newPosition = new google.maps.LatLng(-12.042, -78.028333);
-//					marker.setPosition(newPosition);
-//                    var marker = {
-//                        position: [line[row][0],line[row][1]],
-//                        title: "My Marker"
-//                    };
-//                    $(mapId).gmap3().marker(['']).marker(marker);
-                    //console.dir($(mapId).gmap3().marker());
+
+                    position = new google.maps.LatLng(path[row]['lat'],path[row]['lon']);
+                    map.markers[0].setPosition(position);
+
                 },
                 series : {
                     'Date': { axis: 'y1' },
@@ -171,7 +149,6 @@ $(document).ready(function() {
                 },
                 axes: {
                     y2: {
-                        // set axis-related properties here
                         labelsKMB: true
                     }
                 },
@@ -179,7 +156,6 @@ $(document).ready(function() {
                 y2label: 'Elevation'
             }
     );
-
 
 });
 
