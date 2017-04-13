@@ -109,17 +109,14 @@ DYGRAPH{node.cssId} = [
 </f:for>
 ];
 
-
-
 $(document).ready(function() {
-
 
 	var mapId = "#track{node.cssId}";
 	var dygraph = "graph{node.cssId}";
 	var graph = eval('DYGRAPH{node.cssId}');
 	var path = eval('GMAP{node.cssId}');
 
-	var map = new Maplace({
+	map = new Maplace({
 		map_div: mapId,
 		locations: path,
 		view_all_text: 'Start',
@@ -138,10 +135,9 @@ $(document).ready(function() {
                 labels: ["Date", "Speed km/h", "Elevation"],
                 showRangeSelector: true,
                 highlightCallback: function(e, x, pts, row) {
-
                     position = new google.maps.LatLng(path[row]['lat'],path[row]['lon']);
                     map.markers[0].setPosition(position);
-
+                    map.oMap.panTo(position);
                 },
                 series : {
                     'Date': { axis: 'y1' },

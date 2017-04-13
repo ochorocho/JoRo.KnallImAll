@@ -106,14 +106,17 @@ class BikeTourController extends ActionController {
 				$gpx->unsuppress('speed');
 				$gpx->enableExperimental('calcDistance');
 				$gpx->loadFile($absoluteFilePath);
-				$gpx->ingest();
+				$gpx->ingest($unit = 'kph');
 				$gpxObject = $gpx->getJSON();
 
 				$gpxObject = json_decode($gpxObject, true);
-				// \Neos\Flow\var_dump($hooray);
-				$gpxObject['stats']['distanceTravelled'] = round($gpxObject['stats']['distanceTravelled'] / 3280.8, 2);
 
-				foreach ($hooray['journeys'] as $keyJ=>$journey) {
+				$gpxObject['stats']['distanceTravelled'] = round($gpxObject['stats']['distanceTravelled'] / 3280.8, 2);
+				$gpxObject['stats']['avgspeed'] = round($gpxObject['stats']['avgspeed'] * 1.60934, 2);
+				$gpxObject['stats']['timeMoving'] = gmdate("H:i:s", $gpxObject['stats']['timeMoving']);
+				\Neos\Flow\var_dump($gpxObject['stats']);
+
+				foreach ($gpxObject['journeys'] as $keyJ=>$journey) {
 					foreach ($journey['segments'] as $keyS=>$segment) {
 						foreach ($segment['points'] as $keyP=>$point) {
 							$point['speed'] = preg_replace("/(.*) MPH/", "$1", $point['speed']);
@@ -125,7 +128,7 @@ class BikeTourController extends ActionController {
 			}
 
 			$this->view->assign('headline', $headline);
-			$this->view->assign('gpx', $hooray);
+			$this->view->assign('gpx', $gpxObject);
 			$this->view->assign('asset', $asset);
 			$node->cssId = str_replace('-', '', $node->getIdentifier());
 			$this->view->assign('node', $node);
