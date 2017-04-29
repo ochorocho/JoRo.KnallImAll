@@ -1,0 +1,38 @@
+<div class="slick{currentNode}">
+    <f:for each="{images}" as="slide" iteration="slickIterator">
+        <div>
+            <a class="openPoi" data-fotorama=",{media:uri.image(image: slide.filepath, maximumWidth: 120, maximumHeight: 80)},{slide.lat},{slide.lon},{slickIterator.index}" href="marker{slide.id}">
+                <media:image image="{slide.filepath}" maximumWidth="100" maximumHeight="100" allowCropping="true" alt="dasadsa" />
+            </a>
+        </div>
+    </f:for>
+</div>
+
+<script type="text/javascript">
+    $('.slick{currentNode}').slick({
+        infinite: false,
+        slidesToShow: 10,
+        slidesToScroll: 10,
+        responsive: [
+            {
+                breakpoint: 1023,
+                settings: {
+                    slidesToShow: 7,
+                    slidesToScroll: 7,
+                    infinite: true,
+                    dots: true
+                }
+            },
+            {
+                breakpoint: 640,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4
+                }
+            }
+        ],
+        lazyLoad: 'progressive',
+        prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
+        nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
+    });
+</script>

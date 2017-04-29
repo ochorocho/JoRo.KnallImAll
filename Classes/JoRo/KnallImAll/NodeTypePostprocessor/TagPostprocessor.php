@@ -46,6 +46,7 @@ class TagPostprocessor implements NodeTypePostprocessorInterface {
 		$options = array();
 		$tags->rewind();
 		$i = 0;
+		$options[0] = array('label' => "Choose tag ...");
 		while ($tags->valid()) {
 			/** @var Tag $currentTag */
 			$i++;

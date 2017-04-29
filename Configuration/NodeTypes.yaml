@@ -61,7 +61,7 @@
 
 'JoRo.KnallImAll:BikeTour':
   superTypes:
-    'Neos.Neos:Plugin': true
+    'Neos.Neos:Plugin': TRUE
     'Neos.Neos:Content': TRUE
     'Neos.NodeTypes:TextMixin': TRUE
   ui:
@@ -72,13 +72,21 @@
         BikeTour:
           label: BikeTour
           position: 1
+        TagGroup:
+          label: Slider Images
+          position: 2
+        DisplayDetails:
+          label: Display
+          position: 3
   options:
     pluginViews:
       BikeTour:
         label: 'Bike Tour Anzeigen'
         controllerActions:
-          JoRo\KnallImAll\Controller\BikeTourController:
-            - showAction
+          JoRo\KnallImAll\Controller\BikeTourController: ['showAction']
+  postprocessors:
+    TagPostprocessor:
+      postprocessor: JoRo\KnallImAll\NodeTypePostprocessor\TagPostprocessor
   properties:
     headline:
       type: string
@@ -95,6 +103,31 @@
         reloadIfChanged: true
         inspector:
           group: BikeTour
+    slider:
+      type: boolean
+      defaultValue: FALSE
+      ui:
+        label: Slider
+        reloadIfChanged: true
+        inspector:
+          group: DisplayDetails
+    graph:
+      type: boolean
+      defaultValue: FALSE
+      ui:
+        label: Graph
+        reloadIfChanged: true
+        inspector:
+          group: DisplayDetails
+    stats:
+      type: boolean
+      defaultValue: FALSE
+      ui:
+        label: Statistics
+        reloadIfChanged: true
+        inspector:
+          group: DisplayDetails
+
 'JoRo.KnallImAll:ImageBlock':
   superTypes:
     'Neos.Neos:Plugin': true
@@ -125,6 +158,7 @@
         inlineEditable: true
         inspector:
           group: TagGroup
+
 'JoRo.KnallImAll:Dokuwiki':
   superTypes:
     'Neos.Neos:Plugin': true

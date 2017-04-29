@@ -1,158 +1,33 @@
 {namespace neos=Neos\Neos\ViewHelpers}
 {namespace media=Neos\Media\ViewHelpers}
 
-{neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
+<f:if condition="{headline}">
+    {neos:contentElement.editable(property: 'headline', tag: 'h1', class: '', node: node)}
+</f:if>
 
-
-<div id="track{node.cssId}" node="{node.cssId}" class="gmapTracks"></div>
-<div class="dygraphWrap">
-	<div id="graph{node.cssId}" class="dygraph" node="{node.cssId}" style="width: 100%; height: 200px"></div>
-</div>
-
-<div class="totals row">
-	<div class="small-4 medium-4 large-4 columns">
-		<div class="block">
-			<i class="icon fi-distance"></i> <div class="center">{gpx.stats.distanceTravelled} km</div>
-		</div>
-	</div>
-	<div class="small-4 medium-4 large-4 columns">
-		<div class="block">
-			<i class="icon fi-blind"></i><div class="center">{gpx.stats.avgspeed} km/h</div>
-		</div>
-	</div>
-	<div class="small-4 medium-4 large-4 columns">
-		<div class="block">
-			<i class="icon fi-clock"></i><div class="center">{gpx.stats.timeMoving}</div>
-		</div>
-	</div>
-</div>
-
-
-<script type="text/javascript">
-
-GMAP{node.cssId} = [
-    <f:if condition="{gpx.journeys.journey0.segments.seg0.points.trackpt0.lat}">
-        <![CDATA[{]]>"lat": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lat},"lon": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lon},"title":"Title B1","icon":"http://maps.google.com/mapfiles/markerB.png","show_infowindow":false<![CDATA[}]]>,
-    </f:if>
-    <f:for each="{gpx.journeys}" as="journey" iteration="iJourney">
-
-        <f:if condition="{iJourney.isLast}">
-            <f:then>
-                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
-                    <f:if condition="{iterationSegment.isLast}">
-                    <f:then>
-                        <f:for each="{segment.points}" as="point" iteration="iPoint">
-                            <f:if condition="{iPoint.isLast}">
-                                <f:then>
-                                    <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>
-                                </f:then>
-                                <f:else>
-                                    <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
-                                </f:else>
-                            </f:if>
-                        </f:for>
-                    </f:then>
-                    <f:else>
-                        <f:for each="{segment.points}" as="point" iteration="iPoint">
-                                <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
-                        </f:for>
-                    </f:else>
+<f:flashMessages as="flashMessages">
+    <div class="messages">
+        <f:for each="{flashMessages}" as="flashMessage">
+            <div data-alert class="alert-box warning radius">
+                <f:if condition="{flashMessage.code}">
+                    <h5>{flashMessage.code}</h5>
                 </f:if>
-                </f:for>
-            </f:then>
-            <f:else>
-                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
-                    <f:for each="{segment.points}" as="point" iteration="iPoint">
-                        <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
-                    </f:for>
-                </f:for>
-            </f:else>
-        </f:if>
-    </f:for>
-];
+                {flashMessage}
+            </div>
+        </f:for>
+    </div>
+</f:flashMessages>
 
+<f:render partial="BikeTour/Map" arguments="{node: '{node}', gpx: '{gpx}'}" />
 
-DYGRAPH{node.cssId} = [
-<f:for each="{gpx.journeys}" as="journey" iteration="graphJourney">
-    <f:if condition="{graphJourney.isLast}">
-        <f:then>
-            <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
-                <f:if condition="{iterationSegment.isLast}">
-                    <f:then>
-                        <f:for each="{segment.points}" as="point" iteration="iPoint">
-                            <f:if condition="{iPoint.isLast}">
-                                <f:then>
-                                    [new Date({point.time}), {point.speed}, {point.elevation}]
-                                </f:then>
-                                <f:else>
-                                    [new Date({point.time}), {point.speed}, {point.elevation}],
-                                </f:else>
-                            </f:if>
-                        </f:for>
-                    </f:then>
-                    <f:else>
-                        <f:for each="{segment.points}" as="point" iteration="iPoint">
-                            [new Date({point.time}), {point.speed}, {point.elevation}],
-                        </f:for>
-                    </f:else>
-                </f:if>
-            </f:for>
-        </f:then>
-        <f:else>
-            <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
-                <f:for each="{segment.points}" as="point" iteration="iPoint">
-                    [new Date({point.time}), {point.speed}, {point.elevation}],
-                </f:for>
-            </f:for>
-        </f:else>
-    </f:if>
-</f:for>
-];
+<f:if condition="{node.properties.slider}">
+    <f:render partial="BikeTour/Slider" arguments="{node: '{node}', gpx: '{gpx}', images: '{images}'}" />
+</f:if>
 
-$(document).ready(function() {
+<f:if condition="{node.properties.graph}">
+    <f:render partial="BikeTour/Graph" arguments="{node: '{node}', gpx: '{gpx}'}" />
+</f:if>
 
-	var mapId = "#track{node.cssId}";
-	var dygraph = "graph{node.cssId}";
-	var graph = eval('DYGRAPH{node.cssId}');
-	var path = eval('GMAP{node.cssId}');
-
-	map = new Maplace({
-		map_div: mapId,
-		locations: path,
-		view_all_text: 'Start',
-		type: 'polyline',
-		controls_on_map: false,
-		listeners: {
-			click: function(map, event) {
-				// alert('That was a click!');
-			}
-		}
-	}).Load();
-
-    new Dygraph(document.getElementById(dygraph),
-            graph,
-            {
-                labels: ["Date", "Speed km/h", "Elevation"],
-                showRangeSelector: true,
-                highlightCallback: function(e, x, pts, row) {
-                    position = new google.maps.LatLng(path[row]['lat'],path[row]['lon']);
-                    map.markers[0].setPosition(position);
-                    map.oMap.panTo(position);
-                },
-                series : {
-                    'Date': { axis: 'y1' },
-                    'Elevation': { axis: 'y2' }
-                },
-                axes: {
-                    y2: {
-                        labelsKMB: true
-                    }
-                },
-                ylabel: 'Speed',
-                y2label: 'Elevation'
-            }
-    );
-
-});
-
-</script>
+<f:if condition="{node.properties.stats}">
+    <f:render partial="BikeTour/Stats"  arguments="{node: '{node}', gpx: '{gpx}'}" />
+</f:if>

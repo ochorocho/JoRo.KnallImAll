@@ -1,0 +1,72 @@
+<div class="dygraphWrap">
+    <div id="graph{node.cssId}" class="dygraph" node="{node.cssId}" style="width: 100%; height: 200px"></div>
+</div>
+
+<script type="text/javascript">
+DYGRAPH{node.cssId} = [
+<f:for each="{gpx.journeys}" as="journey" iteration="graphJourney">
+    <f:if condition="{graphJourney.isLast}">
+        <f:then>
+            <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                <f:if condition="{iterationSegment.isLast}">
+                    <f:then>
+                        <f:for each="{segment.points}" as="point" iteration="iPoint">
+                            <f:if condition="{iPoint.isLast}">
+                                <f:then>
+                                    [new Date({point.time}), {point.speed}, {point.elevation}]
+                                </f:then>
+                                <f:else>
+                                    [new Date({point.time}), {point.speed}, {point.elevation}],
+                                </f:else>
+                            </f:if>
+                        </f:for>
+                    </f:then>
+                    <f:else>
+                        <f:for each="{segment.points}" as="point" iteration="iPoint">
+                            [new Date({point.time}), {point.speed}, {point.elevation}],
+                        </f:for>
+                    </f:else>
+                </f:if>
+            </f:for>
+        </f:then>
+        <f:else>
+            <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                <f:for each="{segment.points}" as="point" iteration="iPoint">
+                    [new Date({point.time}), {point.speed}, {point.elevation}],
+                </f:for>
+            </f:for>
+        </f:else>
+    </f:if>
+</f:for>
+];
+
+$(document).ready(function () {
+
+    dygraph = "graph{node.cssId}";
+    graph = eval('DYGRAPH{node.cssId}');
+
+    new Dygraph(document.getElementById(dygraph),
+        graph,
+        {
+            labels: ["Date", "Speed km/h", "Elevation"],
+            showRangeSelector: true,
+            highlightCallback: function(e, x, pts, row) {
+                position = new google.maps.LatLng(path[row]['lat'],path[row]['lon']);
+                map.markers[0].setPosition(position);
+                map.oMap.panTo(position);
+            },
+            series : {
+                'Date': { axis: 'y1' },
+                'Elevation': { axis: 'y2' }
+            },
+            axes: {
+                y2: {
+                    labelsKMB: true
+                }
+            },
+            ylabel: 'Speed',
+            y2label: 'Elevation'
+        }
+    );
+});
+</script>

@@ -119,9 +119,7 @@ class ImageBlockController extends ActionController {
             
             $images = array();
             $i = 0;
-
-
-
+            
             foreach($assetRepository->findByTag($tag) as $image) {
 
                 // \Neos\Flow\var_dump($image);

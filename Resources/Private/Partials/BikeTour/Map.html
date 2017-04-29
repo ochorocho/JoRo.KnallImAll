@@ -1,0 +1,65 @@
+<div id="track{node.cssId}" node="{node.cssId}" class="gmapTracks"></div>
+
+<script type="text/javascript">
+GMAP{node.cssId} = [
+    <f:if condition="{node.properties.graph}">
+        <f:if condition="{gpx.journeys.journey0.segments.seg0.points.trackpt0.lat}">
+            <![CDATA[{]]>"lat": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lat},"lon": {gpx.journeys.journey0.segments.seg0.points.trackpt0.lon},"title":"Title B1","icon":"http://maps.google.com/mapfiles/marker.png","show_infowindow":false<![CDATA[}]]>,
+        </f:if>
+    </f:if>
+    <f:for each="{gpx.journeys}" as="journey" iteration="iJourney">
+        <f:if condition="{iJourney.isLast}">
+            <f:then>
+                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                    <f:if condition="{iterationSegment.isLast}">
+                        <f:then>
+                            <f:for each="{segment.points}" as="point" iteration="iPoint">
+                                <f:if condition="{iPoint.isLast}">
+                                    <f:then>
+                                        <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>
+                                    </f:then>
+                                    <f:else>
+                                        <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                                    </f:else>
+                                </f:if>
+                            </f:for>
+                        </f:then>
+                        <f:else>
+                            <f:for each="{segment.points}" as="point" iteration="iPoint">
+                                <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                            </f:for>
+                        </f:else>
+                    </f:if>
+                </f:for>
+            </f:then>
+            <f:else>
+                <f:for each="{journey.segments}" as="segment" iteration="iterationSegment">
+                    <f:for each="{segment.points}" as="point" iteration="iPoint">
+                        <![CDATA[{]]>"lat": {point.lat},"lon": {point.lon}, visible: false<![CDATA[}]]>,
+                    </f:for>
+                </f:for>
+            </f:else>
+        </f:if>
+    </f:for>
+];
+
+$(document).ready(function() {
+
+    mapId = "#track{node.cssId}";
+    path = eval('GMAP{node.cssId}');
+
+    map = new Maplace({
+        map_div: mapId,
+        locations: path,
+        view_all_text: 'Start',
+        type: 'polyline',
+        controls_on_map: false,
+        listeners: {
+            click: function(map, event) {
+                // alert('That was a click!');
+            }
+        }
+    }).Load();
+
+});
+</script>
