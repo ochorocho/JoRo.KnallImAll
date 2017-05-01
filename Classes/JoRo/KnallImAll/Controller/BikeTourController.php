@@ -192,9 +192,11 @@ class BikeTourController extends ActionController {
 			$images = array();
 			$i = 0;
 
+			// \Neos\Flow\var_dump($tag);
+
 			foreach($assetRepository->findByTag($tag) as $image) {
 
-				// \Neos\Flow\var_dump($image);
+				//\Neos\Flow\var_dump($image);
 
 				if($image->getResource()->getMediaType() == 'image/jpeg') {
 					$tempImage = $image->getResource()->createTemporaryLocalCopy();
@@ -229,13 +231,15 @@ class BikeTourController extends ActionController {
 						'filepath' => $image,
 						'lat' => $lat,
 						'lon' => $lon,
-						'id' => $persistenceManager->getIdentifierByObject($image)
+						'id' => $persistenceManager->getIdentifierByObject($image),
 					);
 					$images[$persistenceManager->getIdentifierByObject($image)] = $item;
 				}
 			}
 
 		}
+
+		//\Neos\Flow\var_dump($images);
 
 		usort($images, function($a, $b) {
 			return $a['date'] - $b['date'];

@@ -2,13 +2,32 @@
     <f:for each="{images}" as="slide" iteration="slickIterator">
         <div>
             <a class="openPoi" data-fotorama=",{media:uri.image(image: slide.filepath, maximumWidth: 120, maximumHeight: 80)},{slide.lat},{slide.lon},{slickIterator.index}" href="marker{slide.id}">
-                <media:image image="{slide.filepath}" maximumWidth="100" maximumHeight="100" allowCropping="true" alt="dasadsa" />
+                <media:image image="{slide.filepath}" maximumWidth="100" maximumHeight="100" allowCropping="true" alt="{slide.title}" />
             </a>
         </div>
     </f:for>
 </div>
 
+<f:for each="{images}" as="slide" iteration="slickIterator">
+    {slide.label}######<br>
+    {slide.caption}######<br>
+</f:for>
+
+
 <script type="text/javascript">
+    var Images = [
+        <f:for each="{images}" as="slide" iteration="iSlide">
+            <f:if condition="{iSlide.isLast}">
+                <f:then>
+                    <![CDATA[{]]>"lat": {slide.lat},"lon": {slide.lon},"infowindow": '<media:image image="{slide.filepath}" maximumWidth="140" maximumHeight="120" allowCropping="true" alt="dasadsa" /><div>{slide.label}<br>{slide.caption}</div>'<![CDATA[}]]>
+                </f:then>
+                <f:else>
+                    <![CDATA[{]]>"lat": {slide.lat},"lon": {slide.lon},"infowindow": '<media:image image="{slide.filepath}" maximumWidth="140" maximumHeight="120" allowCropping="true" alt="dasadsa" /><div>{slide.label}<br>{slide.caption}</div>'<![CDATA[}]]>,
+                </f:else>
+            </f:if>
+        </f:for>
+    ];
+
     $('.slick{currentNode}').slick({
         infinite: false,
         slidesToShow: 10,
@@ -35,4 +54,26 @@
         prevArrow: '<button type="button" class="slick-prev icon fi-arrow-simple-left"></button>',
         nextArrow: '<button type="button" class="slick-next icon fi-arrow-simple-right"></button>',
     });
+
+    $(document).ready(function () {
+
+        // LOAD MARKERS
+        var infowindow = new google.maps.InfoWindow();
+        var icon = <![CDATA["]]>{f:uri.resource(path: 'Images/fi-photo.svg', package: 'JoRo.KnallImAll')}<![CDATA["]]>;
+        $.each(Images, function(key, data) {
+
+            var latlng = new google.maps.LatLng(data.lat, data.lon);
+            var marker = new google.maps.Marker({
+                position: latlng,
+                map: map.oMap,
+                icon: icon
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.setContent(data.infowindow);
+                infowindow.open(map.oMap, this);
+            });
+        });
+    });
+
 </script>
